@@ -1,17 +1,21 @@
 import React, { useEffect, useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+
+import { initializeTicker } from "../../redux/action/ticker.action";
+import { getTickerSymbols } from "../../redux/selectors/tickers.selector";
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
+  const symbols = useSelector(getTickerSymbols);
+
   const onMessage = useCallback((trade) => {
     console.log("trade", trade);
   }, []);
 
   useEffect(() => {
-    // const socket = new WebSocket(
-    //   "wss://stream.binance.com:9443/ws/!miniTicker@arr"
-    // );
-    // socket.addEventListener("message", onMessage);
-  }, [onMessage]);
+    dispatch(initializeTicker());
+  }, []);
 
   return (
     <View>
