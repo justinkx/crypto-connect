@@ -1,13 +1,20 @@
 import React, { useEffect, useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
 import { initializeTicker } from "../../redux/action/ticker.action";
-import { getTickerSymbols } from "../../redux/selectors/tickers.selector";
+import {
+  getTickerSymbols,
+  getSymbolsForPair,
+} from "../../redux/selectors/tickers.selector";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const symbols = useSelector(getTickerSymbols);
+  const usdtSymbol = useSelector(
+    (state) => getSymbolsForPair(state)("RUB"),
+    shallowEqual
+  );
+  console.log("usdtSymbol", usdtSymbol);
 
   useEffect(() => {
     dispatch(initializeTicker());
