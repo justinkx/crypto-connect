@@ -1,4 +1,4 @@
-export const suffix = [
+export const symbols = [
   "USDT",
   "USD",
   "ETH",
@@ -14,8 +14,8 @@ export const suffix = [
   "VAI",
 ];
 export const findIconName = (symbol = "") => {
-  for (i = 0; i < suffix.length; i++) {
-    const end = suffix[i];
+  for (i = 0; i < symbols.length; i++) {
+    const end = symbols[i];
     if (symbol.endsWith(end)) {
       return symbol.replace(end, `-${end}`);
     }
