@@ -1,14 +1,11 @@
-import React, { useEffect, useCallback } from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import React, { useEffect, useMemo, memo } from "react";
+import { StyleSheet } from "react-native";
+import { useDispatch } from "react-redux";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
 import { initializeTicker } from "../../redux/action/ticker.action";
-import {
-  getTickerSymbols,
-  getSymbolsForPair,
-} from "../../redux/selectors/tickers.selector";
+
 import { symbols } from "../../helpers/symbol.helper";
 import TickerSymbolScreen from "./Symbols/TickerSymbolScreen";
 import TickerPairScreen from "./Symbols/TickerPairScreen";
@@ -16,7 +13,7 @@ import TickerPairScreen from "./Symbols/TickerPairScreen";
 const Tab = createMaterialTopTabNavigator();
 const Stack = createSharedElementStackNavigator();
 
-const TickerStack = ({ route }) => {
+const TickerStack = memo(({ route }) => {
   const { symbol } = route.params;
   return (
     <Stack.Navigator headerMode="none">
@@ -28,28 +25,18 @@ const TickerStack = ({ route }) => {
       <Stack.Screen name="ticker-pair" component={TickerPairScreen} />
     </Stack.Navigator>
   );
-};
+});
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const usdtSymbol = useSelector(
-    (state) => getSymbolsForPair(state)("RUB"),
-    shallowEqual
-  );
-  console.log("usdtSymbol", usdtSymbol);
 
   useEffect(() => {
     dispatch(initializeTicker());
   }, []);
 
-  return (
-    <Tab.Navigator
-      lazy
-      tabBarOptions={{
-        scrollEnabled: true,
-      }}
-    >
-      {symbols.map((symbol) => (
+  const screens = useMemo(
+    () =>
+      symbols.map((symbol) => (
         <Tab.Screen
           key={symbol}
           name={`${symbol}`}
@@ -57,11 +44,52 @@ const HomeScreen = () => {
           initialParams={{ symbol }}
           options={{ tabBarLabel: symbol }}
         />
-      ))}
+      )),
+    []
+  );
+
+  return (
+    <Tab.Navigator
+      lazy
+      initialRouteName={symbols[0]}
+      backBehavior="order"
+      swipeEnabled
+      tabBarOptions={{
+        scrollEnabled: true,
+        allowFontScaling: false,
+        tabStyle: {
+          width: 80,
+          height: 35,
+        },
+        style: {
+          marginHorizontal: 5,
+          justifyContent: "center",
+          alignItems: "center",
+          height: 35,
+          padding: 0,
+        },
+        labelStyle: {
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          textAlignVertical: "center",
+          paddingTop: 0,
+          paddingBottom: 0,
+          marginTop: 0,
+        },
+        indicatorStyle: {
+          backgroundColor: "#36A7E7",
+          width: 80,
+          height: 30,
+          borderRadius: 10,
+        },
+      }}
+    >
+      {screens}
     </Tab.Navigator>
   );
 };
 
-export default HomeScreen;
+export default memo(HomeScreen);
 
 const styles = StyleSheet.create({});

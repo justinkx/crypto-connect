@@ -1,8 +1,8 @@
 export const symbols = [
-  "USDT",
-  "USD",
-  "ETH",
   "BTC",
+  "USD",
+  "USDT",
+  "ETH",
   "BNB",
   "RUB",
   "TRY",
