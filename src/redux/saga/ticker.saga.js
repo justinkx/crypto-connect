@@ -15,7 +15,11 @@ function* initializeWebSocketsChannel() {
         payload: JSON.parse(message.data),
       });
     };
+    const onTickersError = (error) => {
+      console.log("error", error);
+    };
     mySocket.addEventListener("message", onTickerMessage);
+    mySocket.addEventListener("error", onTickersError);
     return () => {
       mySocket.removeEventListener("message", onTickerMessage);
     };

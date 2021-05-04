@@ -9,10 +9,6 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
   const symbols = useSelector(getTickerSymbols);
 
-  const onMessage = useCallback((trade) => {
-    console.log("trade", trade);
-  }, []);
-
   useEffect(() => {
     dispatch(initializeTicker());
   }, []);
