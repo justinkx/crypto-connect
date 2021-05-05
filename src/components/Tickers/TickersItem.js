@@ -10,6 +10,7 @@ import {
 import { useSelector, shallowEqual } from "react-redux";
 import isEqual from "lodash/isEqual";
 import { AntDesign } from "@expo/vector-icons";
+import { format } from "date-fns";
 
 import { getSymbolTicker } from "../../redux/selectors/tickers.selector";
 import { getSymbolPair } from "../../helpers/symbol.helper";
@@ -156,7 +157,7 @@ const TickersItem = ({ symbol }) => {
           <TickerTimeViewItem
             containerStyle={styles.alignLast}
             title={"Last Updated"}
-            value={eventTime}
+            value={format(new Date(eventTime), "dd/MM/yyy H:mm")}
           />
         </TableRow>
       </ScrollView>
