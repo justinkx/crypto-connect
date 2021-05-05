@@ -15,7 +15,7 @@ export default StackScreens = () => {
     };
   }, []);
   return (
-    <Stack.Navigator headerMode={"none"}>
+    <Stack.Navigator headerMode={"screen"}>
       <Stack.Screen name="home" component={HomeScreen} />
       <Stack.Screen
         options={pairOptions}
