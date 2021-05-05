@@ -6,6 +6,7 @@ export const colors = {
   white: "#ffffff",
   black: "#000000",
   tabIndicator: "#e9ecef",
+  searchBarBorder: "#adb5bd",
 };
 
 const GlobalStyles = StyleSheet.create({
