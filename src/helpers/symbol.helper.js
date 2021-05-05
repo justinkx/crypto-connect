@@ -1,8 +1,8 @@
-export const suffix = [
+export const symbols = [
+  "BTC",
   "USDT",
   "USD",
   "ETH",
-  "BTC",
   "BNB",
   "RUB",
   "TRY",
@@ -14,11 +14,37 @@ export const suffix = [
   "VAI",
 ];
 export const findIconName = (symbol = "") => {
-  for (i = 0; i < suffix.length; i++) {
-    const end = suffix[i];
+  let result = "";
+  for (i = 0; i < symbols.length; i++) {
+    const end = symbols[i];
     if (symbol.endsWith(end)) {
-      return symbol.replace(end, `-${end}`);
+      result = symbol.replace(end, `-${end}`);
+      return result;
     }
     continue;
   }
+  return result;
+};
+
+export const getSymbolPair = (symbol = "") => {
+  let result = {
+    imageSuffix: "",
+    pair: "",
+    suffix: "",
+  };
+  for (i = 0; i < symbols.length; i++) {
+    const end = symbols[i];
+    if (symbol.endsWith(end)) {
+      const [imageSuffix] = symbol.split(end);
+      result = {
+        pair: symbol.replace(end, `-${end}`),
+        imageSuffix,
+        suffix: end,
+      };
+
+      return result;
+    }
+    continue;
+  }
+  return result;
 };
