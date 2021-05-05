@@ -3220,7 +3220,7 @@ expo-error-recovery@~2.1.0:
   resolved "https://registry.yarnpkg.com/expo-error-recovery/-/expo-error-recovery-2.1.0.tgz#7baf6cabc53162cdd2b36edb20b8aa6d1cdc1107"
   integrity sha512-N5g2QKtdNntUNGQVnB/tG1jHdtJP1+kLMWDS+7ZKRcKfulm3JX/M3l460fsEtqg84n/latxPkBT0yfKw2DSq+Q==
 
-expo-file-system@^11.0.2, expo-file-system@~11.0.2:
+expo-file-system@~11.0.2:
   version "11.0.2"
   resolved "https://registry.yarnpkg.com/expo-file-system/-/expo-file-system-11.0.2.tgz#c3f9b9c6ba25456a0d32c7a9bb38e55310d471bd"
   integrity sha512-nodNvUVa+US4N4xnj5BFw8W9ZF/qCHJVC2t45cHWrBiwkVVxz45wjE7uSHUmkMWyWT7a/7AJuL3XJfYp7h90IQ==
