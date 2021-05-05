@@ -4,7 +4,6 @@ import {
   Text,
   View,
   Image,
-  TouchableOpacity,
   ScrollView,
   useWindowDimensions,
 } from "react-native";
@@ -28,7 +27,6 @@ const TickersItem = ({ symbol }) => {
     shallowEqual
   );
   const {
-    eventType,
     eventTime,
     symbol: tickerSymbol,
     closePrice,
@@ -73,6 +71,7 @@ const TickersItem = ({ symbol }) => {
     return _lastPriceColor;
   }, [closePrice]);
 
+  const onTickerClick = useCallback(() => {}, []);
   return (
     <View style={styles.wrapper}>
       <ScrollView
@@ -84,7 +83,7 @@ const TickersItem = ({ symbol }) => {
         snapToAlignment={"start"}
         scrollEventThrottle={100}
       >
-        <TableRow width={width}>
+        <TableRow onClick={onTickerClick} width={width}>
           <Image
             source={{
               uri: `https://raw.githubusercontent.com/crypti/cryptocurrencies/master/images/${imageSuffix}.png`,
@@ -141,7 +140,11 @@ const TickersItem = ({ symbol }) => {
             </View>
           </View>
         </TableRow>
-        <TableRow rowStyle={styles.timeView} width={width}>
+        <TableRow
+          onClick={onTickerClick}
+          rowStyle={styles.timeView}
+          width={width}
+        >
           <TickerTimeViewItem
             title={"High Price"}
             value={roundLastPrice(parseFloat(highPrice))}

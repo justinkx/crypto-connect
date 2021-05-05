@@ -26,6 +26,7 @@ const TickerSymbolScreen = ({ route, params, isFocused }) => {
           data={symbols}
           keyExtractor={(item) => item}
           renderItem={renderItem}
+          contentContainerStyle={styles.scrollStyle}
         />
       )}
     </View>
@@ -34,4 +35,8 @@ const TickerSymbolScreen = ({ route, params, isFocused }) => {
 
 export default memo(withFocus(TickerSymbolScreen));
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  scrollStyle: {
+    paddingVertical: 5,
+  },
+});

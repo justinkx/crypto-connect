@@ -1,10 +1,12 @@
 import React, { memo } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 
-const TableRow = ({ width, rowStyle = {}, children }) => {
+const TableRow = ({ width, rowStyle = {}, children, onClick }) => {
   return (
     <View style={{ width }}>
-      <View style={[styles.container, rowStyle]}>{children}</View>
+      <TouchableOpacity onPress={onClick}>
+        <View style={[styles.container, rowStyle]}>{children}</View>
+      </TouchableOpacity>
     </View>
   );
 };
