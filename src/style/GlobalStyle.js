@@ -14,6 +14,11 @@ const GlobalStyles = StyleSheet.create({
   scrollView: {
     padding: 14,
   },
+  row: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
 });
 
 export default GlobalStyles;

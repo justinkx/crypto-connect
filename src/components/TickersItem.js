@@ -10,11 +10,12 @@ import {
 } from "react-native";
 import { useSelector, shallowEqual } from "react-redux";
 import isEqual from "lodash/isEqual";
+import { AntDesign } from "@expo/vector-icons";
 
 import { getSymbolTicker } from "../redux/selectors/tickers.selector";
 import { getSymbolPair } from "../helpers/symbol.helper";
 import { find24hChange, roundLastPrice } from "../helpers/ticker.helpers";
-import { colors } from "../style/GlobalStyle";
+import GlobalStyles, { colors } from "../style/GlobalStyle";
 
 const TickersItem = ({ symbol }) => {
   const lastPriceRef = useRef(0);
@@ -47,14 +48,24 @@ const TickersItem = ({ symbol }) => {
     closePrice,
   ]);
 
-  const lastPriceColor = useMemo(() => {
-    let _lastPriceColor;
+  const {
+    lastPriceColor = "",
+    isHigh = null,
+    showIcon = true,
+  } = useMemo(() => {
+    const _lastPriceColor = {
+      lastPriceColor: colors.black,
+      isHigh: null,
+      showIcon: true,
+    };
     if (closePrice > lastPriceRef.current) {
-      _lastPriceColor = colors.tradeGreen;
-    } else if (closePrice === lastPriceRef.current) {
-      _lastPriceColor = colors.black;
+      _lastPriceColor.lastPriceColor = colors.tradeGreen;
+      _lastPriceColor.isHigh = true;
+    } else if (closePrice < lastPriceRef.current) {
+      _lastPriceColor.lastPriceColor = colors.tradeRed;
+      _lastPriceColor.isHigh = false;
     } else {
-      _lastPriceColor = colors.tradeRed;
+      _lastPriceColor.showIcon = false;
     }
     lastPriceRef.current = closePrice;
     return _lastPriceColor;
@@ -87,11 +98,10 @@ const TickersItem = ({ symbol }) => {
             )}`}</Text>
           </View>
           <View style={[styles.nameContainer, { width: "45%" }]}>
-            <Text style={styles.title}>
-              Last Price
+            <View style={GlobalStyles.row}>
               <Text
                 style={[
-                  styles.price,
+                  styles.title,
                   {
                     color: lastPriceColor,
                   },
@@ -99,8 +109,17 @@ const TickersItem = ({ symbol }) => {
               >
                 {lastPrice}
               </Text>
-            </Text>
-            <Text style={styles.volume}>{`Vol (${imageSuffix}): \n${Math.floor(
+              {showIcon && (
+                <AntDesign
+                  style={styles.priceIcon}
+                  name={isHigh ? "caretup" : "caretdown"}
+                  size={16}
+                  color={lastPriceColor}
+                />
+              )}
+            </View>
+
+            <Text style={styles.volume}>{`Vol (${imageSuffix}): ${Math.floor(
               totalTradeBaseAssetVolume
             )}`}</Text>
           </View>
@@ -163,14 +182,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
   },
-
   title: {
     fontSize: 15,
     fontWeight: "bold",
   },
-  price: { fontSize: 12, fontWeight: "bold" },
   volume: {
     paddingTop: 4,
     fontSize: 12,
+  },
+  priceIcon: {
+    marginLeft: 3,
   },
 });
