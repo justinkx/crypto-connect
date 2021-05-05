@@ -5,7 +5,7 @@ import { useSelector, shallowEqual } from "react-redux";
 import { getSymbolsForPair } from "../../../redux/selectors/tickers.selector";
 import withFocus from "../../../hoc/withFocus";
 import GlobalStyles from "../../../style/GlobalStyle";
-import TickersItem from "../../../components/TickersItem";
+import TickersItem from "../../../components/Tickers/TickersItem";
 
 const TickerSymbolScreen = ({ route, params, isFocused }) => {
   const { symbol } = route.params;
@@ -23,7 +23,6 @@ const TickerSymbolScreen = ({ route, params, isFocused }) => {
       {isFocused && (
         <FlatList
           style={GlobalStyles.flex}
-          contentContainerStyle={GlobalStyles.scrollView}
           data={symbols}
           keyExtractor={(item) => item}
           renderItem={renderItem}

@@ -12,10 +12,12 @@ import { useSelector, shallowEqual } from "react-redux";
 import isEqual from "lodash/isEqual";
 import { AntDesign } from "@expo/vector-icons";
 
-import { getSymbolTicker } from "../redux/selectors/tickers.selector";
-import { getSymbolPair } from "../helpers/symbol.helper";
-import { find24hChange, roundLastPrice } from "../helpers/ticker.helpers";
-import GlobalStyles, { colors } from "../style/GlobalStyle";
+import { getSymbolTicker } from "../../redux/selectors/tickers.selector";
+import { getSymbolPair } from "../../helpers/symbol.helper";
+import { find24hChange, roundLastPrice } from "../../helpers/ticker.helpers";
+import GlobalStyles, { colors } from "../../style/GlobalStyle";
+import TableRow from "./TableRow";
+import TickerTimeViewItem from "./TickerTimeViewItem";
 
 const TickersItem = ({ symbol }) => {
   const lastPriceRef = useRef(0);
@@ -70,6 +72,7 @@ const TickersItem = ({ symbol }) => {
     lastPriceRef.current = closePrice;
     return _lastPriceColor;
   }, [closePrice]);
+
   return (
     <View style={styles.wrapper}>
       <ScrollView
@@ -79,10 +82,9 @@ const TickersItem = ({ symbol }) => {
         decelerationRate={0}
         snapToInterval={width}
         snapToAlignment={"start"}
-        scrollEventThrottle={32}
-        disableIntervalMomentum
+        scrollEventThrottle={100}
       >
-        <View style={[styles.container, { width: width - 36 }]}>
+        <TableRow width={width}>
           <Image
             source={{
               uri: `https://raw.githubusercontent.com/crypti/cryptocurrencies/master/images/${imageSuffix}.png`,
@@ -97,7 +99,7 @@ const TickersItem = ({ symbol }) => {
               totalTradeQuoteAssetVolume
             )}`}</Text>
           </View>
-          <View style={[styles.nameContainer, { width: "45%" }]}>
+          <View style={[styles.nameContainer, styles.mainContainerWidth]}>
             <View style={GlobalStyles.row}>
               <Text
                 style={[
@@ -138,8 +140,22 @@ const TickersItem = ({ symbol }) => {
               </Text>
             </View>
           </View>
-        </View>
-        <View style={[styles.container, { width: width - 36 }]}></View>
+        </TableRow>
+        <TableRow rowStyle={styles.timeView} width={width}>
+          <TickerTimeViewItem
+            title={"High Price"}
+            value={roundLastPrice(parseFloat(highPrice))}
+          />
+          <TickerTimeViewItem
+            title={"Low Price"}
+            value={roundLastPrice(parseFloat(lowPrice))}
+          />
+          <TickerTimeViewItem
+            containerStyle={styles.alignLast}
+            title={"Last Updated"}
+            value={eventTime}
+          />
+        </TableRow>
       </ScrollView>
     </View>
   );
@@ -149,13 +165,6 @@ export default memo(TickersItem, isEqual);
 
 const styles = StyleSheet.create({
   wrapper: { paddingVertical: 7, borderBottomWidth: StyleSheet.hairlineWidth },
-  container: {
-    flexDirection: "row",
-    paddingVertical: 6,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    flex: 1,
-  },
   icon: { width: 30, height: 30, marginRight: 10 },
   nameContainer: {
     flexDirection: "column",
@@ -192,5 +201,12 @@ const styles = StyleSheet.create({
   },
   priceIcon: {
     marginLeft: 3,
+  },
+  timeView: {
+    justifyContent: "space-between",
+  },
+  mainContainerWidth: { width: "40%" },
+  alignLast: {
+    alignItems: "flex-end",
   },
 });
