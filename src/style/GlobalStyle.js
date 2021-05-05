@@ -1,7 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
-export default GlobalStyles = StyleSheet.create({
+const GlobalStyles = StyleSheet.create({
   flex: {
     flex: 1,
   },
+  scrollView: {
+    padding: 14,
+  },
 });
+
+export default GlobalStyles;
