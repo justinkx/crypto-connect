@@ -10,6 +10,7 @@ export const colors = {
 const GlobalStyles = StyleSheet.create({
   flex: {
     flex: 1,
+    backgroundColor: colors.white,
   },
   scrollView: {
     padding: 14,

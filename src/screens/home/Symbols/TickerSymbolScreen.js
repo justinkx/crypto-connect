@@ -7,15 +7,15 @@ import withFocus from "../../../hoc/withFocus";
 import GlobalStyles from "../../../style/GlobalStyle";
 import TickersItem from "../../../components/Tickers/TickersItem";
 
-const TickerSymbolScreen = ({ route, params, isFocused }) => {
+const TickerSymbolScreen = ({ route, params, isFocused, navigation }) => {
   const { symbol } = route.params;
   const symbols = useSelector(
     (state) => getSymbolsForPair(state)(symbol),
     shallowEqual
   );
   const renderItem = useCallback(
-    ({ item }) => <TickersItem symbol={item} />,
-    []
+    ({ item }) => <TickersItem navigation={navigation} symbol={item} />,
+    [navigation]
   );
 
   return (

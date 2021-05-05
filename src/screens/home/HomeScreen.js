@@ -8,7 +8,6 @@ import { initializeTicker } from "../../redux/action/ticker.action";
 
 import { symbols } from "../../helpers/symbol.helper";
 import TickerSymbolScreen from "./Symbols/TickerSymbolScreen";
-import TickerPairScreen from "./Symbols/TickerPairScreen";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createSharedElementStackNavigator();
@@ -22,7 +21,6 @@ const TickerStack = memo(({ route }) => {
         name="ticker-screen"
         component={TickerSymbolScreen}
       />
-      <Stack.Screen name="ticker-pair" component={TickerPairScreen} />
     </Stack.Navigator>
   );
 });

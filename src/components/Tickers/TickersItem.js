@@ -19,7 +19,7 @@ import GlobalStyles, { colors } from "../../style/GlobalStyle";
 import TableRow from "./TableRow";
 import TickerTimeViewItem from "./TickerTimeViewItem";
 
-const TickersItem = ({ symbol }) => {
+const TickersItem = ({ symbol, navigation }) => {
   const lastPriceRef = useRef(0);
 
   const { width } = useWindowDimensions();
@@ -72,7 +72,10 @@ const TickersItem = ({ symbol }) => {
     return _lastPriceColor;
   }, [closePrice]);
 
-  const onTickerClick = useCallback(() => {}, []);
+  const onTickerClick = useCallback(() => {
+    navigation.push("ticker-pair", { ticker: { ...ticker, pair: pair } });
+  }, [navigation, ticker]);
+
   return (
     <View style={styles.wrapper}>
       <ScrollView
