@@ -30,3 +30,7 @@ export const getSymbolsForPair = createDeepEqualSelector(
       return symbolForPairArray;
     })
 );
+
+export const getSymbolTicker = createDeepEqualSelector(getReducer, (tickers) =>
+  memoizeOne((symbol = "BTCUSD") => tickers[symbol])
+);
