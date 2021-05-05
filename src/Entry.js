@@ -7,11 +7,15 @@ import {
 
 import store from "./redux/index";
 import AppNavigation from "./navigation/AppNavigation";
+import GlobalStyle from "./style/GlobalStyle";
 
 export default function App() {
   return (
     <Provider store={store}>
-      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <SafeAreaProvider
+        style={GlobalStyle.flex}
+        initialMetrics={initialWindowMetrics}
+      >
         <AppNavigation />
       </SafeAreaProvider>
     </Provider>

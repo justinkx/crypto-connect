@@ -160,7 +160,7 @@ const TickersItem = ({ symbol, navigation }) => {
           <TickerTimeViewItem
             containerStyle={styles.alignLast}
             title={"Last Updated"}
-            value={format(new Date(eventTime), "dd/MM/yyy H:mm")}
+            value={format(new Date(eventTime), "dd/MM/yyy H:mm:ss")}
           />
         </TableRow>
       </ScrollView>
