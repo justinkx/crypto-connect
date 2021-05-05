@@ -5,6 +5,7 @@ export const colors = {
   tradeRed: "#EF3038",
   white: "#ffffff",
   black: "#000000",
+  tabIndicator: "#e9ecef",
 };
 
 const GlobalStyles = StyleSheet.create({
