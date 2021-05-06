@@ -5,7 +5,7 @@ import GlobalStyle from "../../style/GlobalStyle";
 import TickerItemLoader from "../Tickers/TickerItemLoader";
 
 const TickerSymbolPlaceholder = ({}) => {
-  const loaderItems = useMemo(() => new Array(20).fill(0), []);
+  const loaderItems = useMemo(() => new Array(15).fill(0), []);
   return (
     <View style={GlobalStyle.flex}>
       {loaderItems.map((_, index) => (
@@ -15,6 +15,6 @@ const TickerSymbolPlaceholder = ({}) => {
   );
 };
 
-export default TickerSymbolPlaceholder;
+export default memo(TickerSymbolPlaceholder);
 
 const styles = StyleSheet.create({});

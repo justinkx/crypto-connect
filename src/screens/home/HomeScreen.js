@@ -100,7 +100,7 @@ const HomeScreen = () => {
   return (
     <View style={GlobalStyle.flex}>
       <Tab.Navigator
-        lazy
+        lazy={true}
         initialRouteName={symbols[0]}
         backBehavior="order"
         swipeEnabled

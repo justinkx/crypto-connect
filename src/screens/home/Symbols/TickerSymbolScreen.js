@@ -8,10 +8,12 @@ import GlobalStyles from "../../../style/GlobalStyle";
 import TickersItem from "../../../components/Tickers/TickersItem";
 import SearchBar from "../../../components/SearchBar/SearchBar";
 import TickerSymbolPlaceholder from "../../../components/Ui/TickerSymbolPlaceholder";
+import { useAfterInteractions } from "../../../helpers/useInteractions";
 
 const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
   const [searchValue, setSearchValue] = useState("");
   const { symbol } = route.params;
+  const { shouldRender } = useAfterInteractions();
 
   const symbols = useSelector(
     (state) => getSymbolsForPair(state)(symbol),
@@ -36,6 +38,7 @@ const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
         : symbols,
     [symbols, searchValue]
   );
+
   return (
     <View style={GlobalStyles.flex}>
       <SearchBar
@@ -43,7 +46,7 @@ const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
         value={searchValue}
         containerStyle={styles.searchContainerStyle}
       />
-      {isFocused && (
+      {isFocused && shouldRender && (
         <FlatList
           style={GlobalStyles.flex}
           data={symbolData}

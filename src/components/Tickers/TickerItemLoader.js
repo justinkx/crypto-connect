@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { StyleSheet, View } from "react-native";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
@@ -27,7 +27,7 @@ const TickerItemLoader = ({}) => {
   );
 };
 
-export default TickerItemLoader;
+export default memo(TickerItemLoader);
 
 const styles = StyleSheet.create({
   wrapper: {
