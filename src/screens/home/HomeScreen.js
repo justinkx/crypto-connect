@@ -16,6 +16,7 @@ import { initializeTicker } from "../../redux/action/ticker.action";
 import { symbols } from "../../helpers/symbol.helper";
 import GlobalStyle, { colors } from "../../style/GlobalStyle";
 import TickerSymbolPlaceholder from "../../components/Ui/TickerSymbolPlaceholder";
+import { isAndroid } from "../../helpers/platform.helpers";
 
 const TickerSymbolScreen = lazy(() => import("./Symbols/TickerSymbolScreen"));
 
@@ -105,6 +106,7 @@ const HomeScreen = () => {
         backBehavior="order"
         swipeEnabled
         tabBarOptions={tabBarOptions}
+        removeClippedSubviews={isAndroid}
       >
         {screens}
       </Tab.Navigator>
