@@ -7,6 +7,7 @@ import withFocus from "../../../hoc/withFocus";
 import GlobalStyles from "../../../style/GlobalStyle";
 import TickersItem from "../../../components/Tickers/TickersItem";
 import SearchBar from "../../../components/SearchBar/SearchBar";
+import TickerSymbolPlaceholder from "../../../components/Ui/TickerSymbolPlaceholder";
 
 const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -49,6 +50,7 @@ const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
           keyExtractor={(item) => item}
           renderItem={renderItem}
           contentContainerStyle={styles.scrollStyle}
+          ListEmptyComponent={TickerSymbolPlaceholder}
         />
       )}
     </View>
