@@ -16,6 +16,7 @@ const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
     (state) => getSymbolsForPair(state)(symbol),
     shallowEqual
   );
+
   const renderItem = useCallback(
     ({ item }) => <TickersItem navigation={navigation} symbol={item} />,
     [navigation]

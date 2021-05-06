@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useCallback, useRef } from "react";
+import React, { memo, useMemo, useCallback, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -19,8 +19,11 @@ import GlobalStyles, { colors } from "../../style/GlobalStyle";
 import TableRow from "./TableRow";
 import TickerTimeViewItem from "./TickerTimeViewItem";
 
+const DefaultCoin = require("../../../assets/coins.png");
+
 const TickersItem = ({ symbol, navigation }) => {
   const lastPriceRef = useRef(0);
+  const [imageLoadError, setLoadError] = useState(false);
 
   const { width } = useWindowDimensions();
   const ticker = useSelector(
@@ -72,9 +75,23 @@ const TickersItem = ({ symbol, navigation }) => {
     return _lastPriceColor;
   }, [closePrice]);
 
+  const tokenImage = useMemo(
+    () =>
+      imageLoadError
+        ? DefaultCoin
+        : {
+            uri: `https://raw.githubusercontent.com/crypti/cryptocurrencies/master/images/${imageSuffix}.png`,
+          },
+    [imageLoadError, imageSuffix]
+  );
+
   const onTickerClick = useCallback(() => {
     navigation.push("ticker-pair", { ticker: { ...ticker, pair: pair } });
   }, [navigation, ticker]);
+
+  const onImageLoadError = useCallback(() => {
+    setLoadError(true);
+  }, []);
 
   return (
     <View style={styles.wrapper}>
@@ -89,12 +106,12 @@ const TickersItem = ({ symbol, navigation }) => {
       >
         <TableRow onClick={onTickerClick} width={width}>
           <Image
-            source={{
-              uri: `https://raw.githubusercontent.com/crypti/cryptocurrencies/master/images/${imageSuffix}.png`,
-            }}
+            source={tokenImage}
+            defaultSource={DefaultCoin}
             resizeMethod={"auto"}
             resizeMode={"cover"}
             style={styles.icon}
+            onError={onImageLoadError}
           />
           <View style={styles.nameContainer}>
             <Text style={styles.title}>{pair}</Text>
