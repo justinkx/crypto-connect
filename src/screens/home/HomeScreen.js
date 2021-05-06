@@ -1,4 +1,11 @@
-import React, { useEffect, useMemo, memo } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  memo,
+  lazy,
+  Suspense,
+  useCallback,
+} from "react";
 import { StyleSheet, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -7,14 +14,16 @@ import { createSharedElementStackNavigator } from "react-navigation-shared-eleme
 import { initializeTicker } from "../../redux/action/ticker.action";
 
 import { symbols } from "../../helpers/symbol.helper";
-import TickerSymbolScreen from "./Symbols/TickerSymbolScreen";
 import GlobalStyle, { colors } from "../../style/GlobalStyle";
+import TickerSymbolPlaceholder from "../../components/Ui/TickerSymbolPlaceholder";
+import { isAndroid } from "../../helpers/platform.helpers";
+
+const TickerSymbolScreen = lazy(() => import("./Symbols/TickerSymbolScreen"));
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createSharedElementStackNavigator();
 const tabBarOptions = {
   scrollEnabled: true,
-  allowFontScaling: false,
   tabStyle: {
     width: 80,
     height: 30,
@@ -35,7 +44,8 @@ const tabBarOptions = {
   labelStyle: {
     textAlign: "center",
     position: "relative",
-    bottom: 8,
+    bottom: 10,
+    fontWeight: "bold",
   },
   indicatorStyle: {
     backgroundColor: colors.tabIndicator,
@@ -44,16 +54,26 @@ const tabBarOptions = {
     borderRadius: 10,
   },
   showIcon: false,
+  activeTintColor: colors.white,
+  inactiveTintColor: colors.black,
 };
 
 const TickerStack = memo(({ route }) => {
   const { symbol } = route.params;
+  const TickerSymbol = useCallback(
+    (props) => (
+      <Suspense fallback={<TickerSymbolPlaceholder />}>
+        <TickerSymbolScreen {...props} />
+      </Suspense>
+    ),
+    []
+  );
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen
         initialParams={{ symbol }}
         name="ticker-screen"
-        component={TickerSymbolScreen}
+        component={TickerSymbol}
       />
     </Stack.Navigator>
   );
@@ -83,11 +103,12 @@ const HomeScreen = () => {
   return (
     <View style={GlobalStyle.flex}>
       <Tab.Navigator
-        lazy
+        lazy={true}
         initialRouteName={symbols[0]}
         backBehavior="order"
         swipeEnabled
         tabBarOptions={tabBarOptions}
+        removeClippedSubviews={isAndroid}
       >
         {screens}
       </Tab.Navigator>

@@ -5,44 +5,18 @@ import HomeScreen from "../screens/home/HomeScreen";
 import TickerPairScreen from "../screens/home/Symbols/TickerPairScreen";
 
 const Stack = createSharedElementStackNavigator();
-const sharedOptions = {
-  headerShown: true,
-  gestureEnabled: false,
-  tabBarVisible: false,
-  animationEnabled: true,
-  transitionSpec: {
-    open: {
-      animation: "timing",
-      config: {
-        delay: 400,
-      },
-    },
-    close: {
-      animation: "timing",
-      config: {
-        delay: 400,
-      },
-    },
-  },
-  cardStyleInterpolator: ({ current: { progress } }) => {
-    return {
-      cardStyle: {
-        opacity: progress,
-      },
-    };
-  },
-};
 
 export default StackScreens = () => {
   return (
     <Stack.Navigator headerMode={"screen"}>
       <Stack.Screen
         options={{
-          headerShown: true,
           safeAreaInsets: {
             top: 0,
             bottom: 0,
           },
+          title: "",
+          headerStyle: homeHeaderStyle,
         }}
         name="home"
         component={HomeScreen}
@@ -76,4 +50,40 @@ export default StackScreens = () => {
       />
     </Stack.Navigator>
   );
+};
+
+const sharedOptions = {
+  headerShown: false,
+  gestureEnabled: true,
+  tabBarVisible: false,
+  animationEnabled: true,
+  transitionSpec: {
+    open: {
+      animation: "timing",
+      config: {
+        delay: 400,
+      },
+    },
+    close: {
+      animation: "timing",
+      config: {
+        delay: 400,
+      },
+    },
+  },
+  cardStyleInterpolator: ({ current: { progress } }) => {
+    return {
+      cardStyle: {
+        opacity: progress,
+      },
+    };
+  },
+};
+const homeHeaderStyle = {
+  shadowOpacity: 0,
+  shadowOffset: {
+    height: 0,
+  },
+  shadowRadius: 0,
+  elevation: 0,
 };

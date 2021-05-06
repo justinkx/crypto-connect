@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity } from "react-native";
 
 const TableRow = ({ width, rowStyle = {}, children, onClick }) => {
   return (
-    <View style={{ width }}>
+    <View style={[styles.wrapper, { width }]}>
       <TouchableOpacity onPress={onClick}>
         <View style={[styles.container, rowStyle]}>{children}</View>
       </TouchableOpacity>
@@ -14,6 +14,9 @@ const TableRow = ({ width, rowStyle = {}, children, onClick }) => {
 export default memo(TableRow);
 
 const styles = StyleSheet.create({
+  wrapper: {
+    justifyContent: "center",
+  },
   container: {
     flexDirection: "row",
     paddingVertical: 6,
