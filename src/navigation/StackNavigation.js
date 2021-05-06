@@ -11,7 +11,6 @@ export default StackScreens = () => {
     <Stack.Navigator headerMode={"screen"}>
       <Stack.Screen
         options={{
-          headerShown: true,
           safeAreaInsets: {
             top: 0,
             bottom: 0,
@@ -54,8 +53,8 @@ export default StackScreens = () => {
 };
 
 const sharedOptions = {
-  headerShown: true,
-  gestureEnabled: false,
+  headerShown: false,
+  gestureEnabled: true,
   tabBarVisible: false,
   animationEnabled: true,
   transitionSpec: {
