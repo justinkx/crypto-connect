@@ -1,4 +1,11 @@
-import React, { useEffect, useMemo, memo } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  memo,
+  lazy,
+  Suspense,
+  useCallback,
+} from "react";
 import { StyleSheet, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -7,8 +14,10 @@ import { createSharedElementStackNavigator } from "react-navigation-shared-eleme
 import { initializeTicker } from "../../redux/action/ticker.action";
 
 import { symbols } from "../../helpers/symbol.helper";
-import TickerSymbolScreen from "./Symbols/TickerSymbolScreen";
 import GlobalStyle, { colors } from "../../style/GlobalStyle";
+import TickerSymbolPlaceholder from "../../components/Ui/TickerSymbolPlaceholder";
+
+const TickerSymbolScreen = lazy(() => import("./Symbols/TickerSymbolScreen"));
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createSharedElementStackNavigator();
@@ -48,12 +57,20 @@ const tabBarOptions = {
 
 const TickerStack = memo(({ route }) => {
   const { symbol } = route.params;
+  const TickerSymbol = useCallback(
+    (props) => (
+      <Suspense fallback={<TickerSymbolPlaceholder />}>
+        <TickerSymbolScreen {...props} />
+      </Suspense>
+    ),
+    []
+  );
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen
         initialParams={{ symbol }}
         name="ticker-screen"
-        component={TickerSymbolScreen}
+        component={TickerSymbol}
       />
     </Stack.Navigator>
   );
