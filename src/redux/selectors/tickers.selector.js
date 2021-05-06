@@ -19,11 +19,11 @@ export const getSymbolsForPair = createDeepEqualSelector(
   getTickerSymbols,
   (symbols) =>
     memoizeOne((suffix = "USDT") => {
-      const symbolForPairArray = [];
+      let symbolForPairArray = [];
       for (i = 0; i < symbols.length; i++) {
         const pair = symbols[i];
         if (pair.endsWith(suffix)) {
-          symbolForPairArray.push(symbols[i]);
+          symbolForPairArray = [...symbolForPairArray, symbols[i]];
           continue;
         }
       }

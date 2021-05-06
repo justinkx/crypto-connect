@@ -8,7 +8,7 @@ import GlobalStyles from "../../../style/GlobalStyle";
 import TickersItem from "../../../components/Tickers/TickersItem";
 import SearchBar from "../../../components/SearchBar/SearchBar";
 
-const TickerSymbolScreen = ({ route, params, isFocused, navigation }) => {
+const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
   const [searchValue, setSearchValue] = useState("");
   const { symbol } = route.params;
 

@@ -79,12 +79,12 @@ const TickersItem = ({ symbol, navigation }) => {
   return (
     <View style={styles.wrapper}>
       <ScrollView
+        pagingEnabled
         showsHorizontalScrollIndicator={false}
         bounces
         horizontal
-        decelerationRate={0}
         snapToInterval={width}
-        snapToAlignment={"start"}
+        snapToAlignment={"center"}
         scrollEventThrottle={100}
       >
         <TableRow onClick={onTickerClick} width={width}>

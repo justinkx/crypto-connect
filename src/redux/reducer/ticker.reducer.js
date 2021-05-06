@@ -8,6 +8,6 @@ export default function tickerReducer(state = initialState, action) {
     case SAVE_TICKER:
       return { ...state, ...tickers };
     default:
-      return { ...state };
+      return state;
   }
 }
