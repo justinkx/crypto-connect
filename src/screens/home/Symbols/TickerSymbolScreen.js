@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState, useMemo } from "react";
+import React, { memo, useCallback, useState, useMemo, useEffect } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import { useSelector, shallowEqual } from "react-redux";
 
@@ -40,6 +40,11 @@ const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
     [symbols, searchValue]
   );
 
+  useEffect(() => {
+    if (!isFocused) {
+      setSearchValue("");
+    }
+  }, [isFocused]);
   return (
     <View style={GlobalStyles.flex}>
       <SearchBar
