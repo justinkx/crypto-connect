@@ -1,5 +1,5 @@
 import { eventChannel } from "redux-saga";
-import { put, take, takeLatest, spawn, race } from "redux-saga/effects";
+import { put, take, takeLatest, spawn, race, select } from "redux-saga/effects";
 
 import {
   SET_TICKER_PAIR,
@@ -12,11 +12,14 @@ import {
   startTickerPairSocket,
 } from "../action/tickerPair.action";
 import { tickerPairAdaptor } from "../adaptor/tickerPair.adaptor";
+import { getSelectedPair } from "../selectors/tickerPair.selector";
 
 function* initializeWebSocketsChannel() {
+  const pair = yield select(getSelectedPair);
+
   const channel = eventChannel((emitter) => {
     const mySocket = new WebSocket(
-      "wss://stream.binance.com:9443/ws/bnbbtc@ticker"
+      `wss://stream.binance.com:9443/ws/${pair}@ticker`
     );
     const onTickerMessage = (message) => {
       emitter({
