@@ -4,7 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 
 import { colors } from "../../style/GlobalStyle";
 
-const HEIGHT = 30;
+const HEIGHT = 33;
 
 const SearchBar = ({
   onValueChange,
@@ -13,6 +13,7 @@ const SearchBar = ({
   inputStyle = {},
   closeIconStyle = {},
   value,
+  searchRef,
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
@@ -23,6 +24,10 @@ const SearchBar = ({
         style={[styles.input, inputStyle]}
         placeholder={placeholder}
         placeholderTextColor={colors.searchBarBorder}
+        returnKeyType={"done"}
+        renderToHardwareTextureAndroid
+        blurOnSubmit
+        ref={searchRef}
       />
       {value.length > 0 && (
         <TouchableOpacity

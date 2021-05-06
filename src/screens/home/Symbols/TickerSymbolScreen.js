@@ -37,7 +37,11 @@ const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
   );
   return (
     <View style={GlobalStyles.flex}>
-      <SearchBar onValueChange={onValueChange} value={searchValue} />
+      <SearchBar
+        onValueChange={onValueChange}
+        value={searchValue}
+        containerStyle={styles.searchContainerStyle}
+      />
       {isFocused && (
         <FlatList
           style={GlobalStyles.flex}
@@ -56,5 +60,8 @@ export default memo(withFocus(TickerSymbolScreen));
 const styles = StyleSheet.create({
   scrollStyle: {
     paddingVertical: 5,
+  },
+  searchContainerStyle: {
+    marginBottom: 5,
   },
 });
