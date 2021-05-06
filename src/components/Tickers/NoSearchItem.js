@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 
 import GlobalStyle from "../../style/GlobalStyle";
@@ -12,7 +12,7 @@ const NoSearchItem = ({}) => {
   );
 };
 
-export default NoSearchItem;
+export default memo(NoSearchItem);
 
 const styles = StyleSheet.create({
   container: {

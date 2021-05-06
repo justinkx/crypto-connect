@@ -9,6 +9,7 @@ import TickersItem from "../../../components/Tickers/TickersItem";
 import SearchBar from "../../../components/SearchBar/SearchBar";
 import TickerSymbolPlaceholder from "../../../components/Ui/TickerSymbolPlaceholder";
 import { useAfterInteractions } from "../../../helpers/useInteractions";
+import NoSearchItem from "../../../components/Tickers/NoSearchItem";
 
 const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -53,7 +54,9 @@ const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
           keyExtractor={(item) => item}
           renderItem={renderItem}
           contentContainerStyle={styles.scrollStyle}
-          ListEmptyComponent={TickerSymbolPlaceholder}
+          ListEmptyComponent={
+            searchValue ? NoSearchItem : TickerSymbolPlaceholder
+          }
         />
       )}
     </View>
@@ -65,6 +68,7 @@ export default memo(withFocus(TickerSymbolScreen));
 const styles = StyleSheet.create({
   scrollStyle: {
     paddingVertical: 5,
+    flexGrow: 1,
   },
   searchContainerStyle: {
     marginBottom: 5,
