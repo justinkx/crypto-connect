@@ -22,6 +22,7 @@ const TickerSymbolScreen = lazy(() => import("./Symbols/TickerSymbolScreen"));
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createSharedElementStackNavigator();
+
 const tabBarOptions = {
   scrollEnabled: true,
   tabStyle: {

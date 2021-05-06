@@ -11,6 +11,7 @@ import { useSelector, shallowEqual } from "react-redux";
 import isEqual from "lodash/isEqual";
 import { AntDesign } from "@expo/vector-icons";
 import { format } from "date-fns";
+import { SharedElement } from "react-navigation-shared-element";
 
 import { getSymbolTicker } from "../../redux/selectors/tickers.selector";
 import { getSymbolPair } from "../../helpers/symbol.helper";
@@ -86,8 +87,10 @@ const TickersItem = ({ symbol, navigation }) => {
   );
 
   const onTickerClick = useCallback(() => {
-    navigation.push("ticker-pair", { ticker: { ...ticker, pair: pair } });
-  }, [navigation, ticker]);
+    navigation.push("ticker-pair", {
+      ticker: { ...ticker, pair: pair, tokenImage },
+    });
+  }, [navigation, ticker, tokenImage]);
 
   const onImageLoadError = useCallback(() => {
     setLoadError(true);
@@ -105,16 +108,22 @@ const TickersItem = ({ symbol, navigation }) => {
         scrollEventThrottle={100}
       >
         <TableRow onClick={onTickerClick} width={width}>
-          <Image
-            source={tokenImage}
-            defaultSource={DefaultCoin}
-            resizeMethod={"auto"}
-            resizeMode={"cover"}
-            style={styles.icon}
-            onError={onImageLoadError}
-          />
+          <SharedElement id={`image-${pair}`}>
+            <Image
+              source={tokenImage}
+              defaultSource={DefaultCoin}
+              resizeMethod={"auto"}
+              resizeMode={"cover"}
+              style={styles.icon}
+              onError={onImageLoadError}
+            />
+          </SharedElement>
+
           <View style={styles.nameContainer}>
-            <Text style={styles.title}>{pair}</Text>
+            <SharedElement id={`ticker-${symbol}`}>
+              <Text style={styles.title}>{pair}</Text>
+            </SharedElement>
+
             <Text style={styles.volume}>{`Vol (${suffix}): \n${Math.floor(
               totalTradeQuoteAssetVolume
             )}`}</Text>

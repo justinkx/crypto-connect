@@ -8,12 +8,20 @@ import {
   setTickerPair,
   resetTickerPair,
 } from "../../../redux/action/tickerPair.action";
+import Header from "../../../components/TickerPair/Header";
 
 const TickerPairScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
+  const { ticker } = route.params;
   const {
-    ticker: { symbol, pair },
-  } = route.params;
+    symbol,
+    pair,
+    closePrice,
+    openPrice,
+    highPrice,
+    lowPrice,
+    tokenImage,
+  } = ticker;
 
   useEffect(() => {
     dispatch(setTickerPair(symbol));
@@ -23,7 +31,7 @@ const TickerPairScreen = ({ route, navigation }) => {
   }, [symbol, dispatch]);
   return (
     <SafeAreaView style={GlobalStyle.flex}>
-      <Text>Details</Text>
+      <Header ticker={ticker} />
     </SafeAreaView>
   );
 };
