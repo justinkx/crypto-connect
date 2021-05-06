@@ -24,7 +24,6 @@ const Tab = createMaterialTopTabNavigator();
 const Stack = createSharedElementStackNavigator();
 const tabBarOptions = {
   scrollEnabled: true,
-  allowFontScaling: false,
   tabStyle: {
     width: 80,
     height: 30,
@@ -45,7 +44,8 @@ const tabBarOptions = {
   labelStyle: {
     textAlign: "center",
     position: "relative",
-    bottom: 8,
+    bottom: 10,
+    fontWeight: "bold",
   },
   indicatorStyle: {
     backgroundColor: colors.tabIndicator,
@@ -54,6 +54,8 @@ const tabBarOptions = {
     borderRadius: 10,
   },
   showIcon: false,
+  activeTintColor: colors.white,
+  inactiveTintColor: colors.black,
 };
 
 const TickerStack = memo(({ route }) => {
