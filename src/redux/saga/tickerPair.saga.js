@@ -1,0 +1,73 @@
+import { eventChannel } from "redux-saga";
+import {
+  put,
+  take,
+  takeLatest,
+  spawn,
+  takeEvery,
+  race,
+} from "redux-saga/effects";
+
+import {
+  SET_TICKER_PAIR,
+  SAVE_PAIR_DATA,
+  RESET_TICKER_PAIR,
+  START_TICKER_PAIR_SOCKET,
+} from "../action/types";
+import {
+  savePairData,
+  startTickerPairSocket,
+} from "../action/tickerPair.action";
+import { tickerPairAdaptor } from "../adaptor/tickerPair.adaptor";
+
+function* initializeWebSocketsChannel() {
+  const channel = eventChannel((emitter) => {
+    const mySocket = new WebSocket(
+      "wss://stream.binance.com:9443/ws/BNBBTC@ticker"
+    );
+    const onTickerMessage = (message) => {
+      emitter({
+        type: SAVE_PAIR_DATA,
+        payload: JSON.parse(message.data),
+      });
+    };
+    const onTickersError = (error) => {
+      console.log("error", error);
+    };
+    mySocket.addEventListener("message", onTickerMessage);
+    mySocket.addEventListener("error", onTickersError);
+    return () => {
+      mySocket.removeEventListener("message", onTickerMessage);
+    };
+  });
+  while (true) {
+    try {
+      const { payload } = yield take(channel);
+      const { messageAction, resetAction } = yield race({
+        messageAction: take(channel),
+        resetAction: take(RESET_TICKER_PAIR),
+      });
+      if (resetAction) {
+        channel.close();
+        return;
+      }
+      const { payload } = messageAction;
+      const data = tickerPairAdaptor(payload);
+      yield put(savePairData(data));
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+}
+
+function* tickerPairSaga() {
+  yield takeLatest(START_TICKER_PAIR_SOCKET, initializeWebSocketsChannel);
+}
+
+function* tickerPairListenerSaga() {
+  yield put(startTickerPairSocket);
+}
+export default function* tickerPairSaga() {
+  yield spawn(tickerPairSaga);
+  yield takeEvery(SET_TICKER_PAIR, tickerPairListenerSaga);
+}
