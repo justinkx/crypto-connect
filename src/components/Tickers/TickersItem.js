@@ -124,7 +124,7 @@ const TickersItem = ({ symbol, navigation }) => {
               )}
             </View>
 
-            <Text style={styles.volume}>{`Vol (${imageSuffix}): ${Math.floor(
+            <Text style={styles.volume}>{`Vol (${imageSuffix}):\n${Math.floor(
               totalTradeBaseAssetVolume
             )}`}</Text>
           </View>
@@ -160,7 +160,7 @@ const TickersItem = ({ symbol, navigation }) => {
           <TickerTimeViewItem
             containerStyle={styles.alignLast}
             title={"Last Updated"}
-            value={format(new Date(eventTime), "dd/MM/yyy H:mm:ss")}
+            value={format(new Date(eventTime), "HH:mm:ss")}
           />
         </TableRow>
       </ScrollView>
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     marginRight: 15,
-    width: "25%",
+    width: "30%",
   },
   changeContainer: {
     flexGrow: 1,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   timeView: {
     justifyContent: "space-between",
   },
-  mainContainerWidth: { width: "40%" },
+  mainContainerWidth: { width: "35%" },
   alignLast: {
     alignItems: "flex-end",
   },
