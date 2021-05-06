@@ -1,12 +1,5 @@
 import { eventChannel } from "redux-saga";
-import {
-  put,
-  take,
-  takeLatest,
-  spawn,
-  takeEvery,
-  race,
-} from "redux-saga/effects";
+import { put, take, takeLatest, spawn, race } from "redux-saga/effects";
 
 import {
   SET_TICKER_PAIR,
@@ -23,7 +16,7 @@ import { tickerPairAdaptor } from "../adaptor/tickerPair.adaptor";
 function* initializeWebSocketsChannel() {
   const channel = eventChannel((emitter) => {
     const mySocket = new WebSocket(
-      "wss://stream.binance.com:9443/ws/BNBBTC@ticker"
+      "wss://stream.binance.com:9443/ws/bnbbtc@ticker"
     );
     const onTickerMessage = (message) => {
       emitter({
@@ -42,7 +35,6 @@ function* initializeWebSocketsChannel() {
   });
   while (true) {
     try {
-      const { payload } = yield take(channel);
       const { messageAction, resetAction } = yield race({
         messageAction: take(channel),
         resetAction: take(RESET_TICKER_PAIR),
@@ -60,14 +52,14 @@ function* initializeWebSocketsChannel() {
   }
 }
 
-function* tickerPairSaga() {
+function* tickerPairSocketSaga() {
   yield takeLatest(START_TICKER_PAIR_SOCKET, initializeWebSocketsChannel);
 }
 
 function* tickerPairListenerSaga() {
-  yield put(startTickerPairSocket);
+  yield put(startTickerPairSocket());
 }
 export default function* tickerPairSaga() {
-  yield spawn(tickerPairSaga);
-  yield takeEvery(SET_TICKER_PAIR, tickerPairListenerSaga);
+  yield spawn(tickerPairSocketSaga);
+  yield takeLatest(SET_TICKER_PAIR, tickerPairListenerSaga);
 }
