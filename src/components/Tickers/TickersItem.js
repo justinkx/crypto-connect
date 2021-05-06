@@ -168,11 +168,11 @@ const TickersItem = ({ symbol, navigation }) => {
         >
           <TickerTimeViewItem
             title={"High Price"}
-            value={roundLastPrice(parseFloat(highPrice))}
+            value={`\u25B2 ${roundLastPrice(parseFloat(highPrice))}`}
           />
           <TickerTimeViewItem
             title={"Low Price"}
-            value={roundLastPrice(parseFloat(lowPrice))}
+            value={`\u25BC ${roundLastPrice(parseFloat(lowPrice))}`}
           />
           <TickerTimeViewItem
             containerStyle={styles.alignLast}
