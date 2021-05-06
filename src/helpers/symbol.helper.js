@@ -13,12 +13,18 @@ export const symbols = [
   "PAX",
   "VAI",
 ];
+export const replace = (string, pattern, replacePattern = "") =>
+  string.replace(
+    new RegExp(pattern.replace(/\./g, "\\$&") + "$"),
+    replacePattern
+  );
+
 export const findIconName = (symbol = "") => {
   let result = "";
   for (i = 0; i < symbols.length; i++) {
     const end = symbols[i];
     if (symbol.endsWith(end)) {
-      result = symbol.replace(end, `-${end}`);
+      result = replace(symbol, end, `-${end}`);
       return result;
     }
     continue;
@@ -36,8 +42,9 @@ export const getSymbolPair = (symbol = "") => {
     const end = symbols[i];
     if (symbol.endsWith(end)) {
       const [imageSuffix] = symbol.split(end);
+      const replacePair = replace(symbol, end, `-${end}`);
       result = {
-        pair: symbol.replace(end, `-${end}`),
+        pair: replacePair,
         imageSuffix,
         suffix: end,
       };
