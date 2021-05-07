@@ -9,21 +9,20 @@ import {
 } from "react-native";
 import { useSelector, shallowEqual } from "react-redux";
 import isEqual from "lodash/isEqual";
-import { AntDesign } from "@expo/vector-icons";
 import { format } from "date-fns";
 import { SharedElement } from "react-navigation-shared-element";
 
 import { getSymbolTicker } from "../../redux/selectors/tickers.selector";
 import { getSymbolPair } from "../../helpers/symbol.helper";
 import { find24hChange, roundLastPrice } from "../../helpers/ticker.helpers";
-import GlobalStyles, { colors } from "../../style/GlobalStyle";
+import { colors } from "../../style/GlobalStyle";
 import TableRow from "./TableRow";
 import TickerTimeViewItem from "./TickerTimeViewItem";
+import TickerPrice from "./TickerPrice";
 
 const DefaultCoin = require("../../../assets/coins.png");
 
 const TickersItem = ({ symbol, navigation }) => {
-  const lastPriceRef = useRef(0);
   const [imageLoadError, setLoadError] = useState(false);
 
   const { width } = useWindowDimensions();
@@ -49,32 +48,6 @@ const TickersItem = ({ symbol, navigation }) => {
     openPrice,
     closePrice,
   ]);
-  const lastPrice = useMemo(() => roundLastPrice(parseFloat(closePrice)), [
-    closePrice,
-  ]);
-
-  const {
-    lastPriceColor = "",
-    isHigh = null,
-    showIcon = true,
-  } = useMemo(() => {
-    const _lastPriceColor = {
-      lastPriceColor: colors.black,
-      isHigh: null,
-      showIcon: true,
-    };
-    if (closePrice > lastPriceRef.current) {
-      _lastPriceColor.lastPriceColor = colors.tradeGreen;
-      _lastPriceColor.isHigh = true;
-    } else if (closePrice < lastPriceRef.current) {
-      _lastPriceColor.lastPriceColor = colors.tradeRed;
-      _lastPriceColor.isHigh = false;
-    } else {
-      _lastPriceColor.showIcon = false;
-    }
-    lastPriceRef.current = closePrice;
-    return _lastPriceColor;
-  }, [closePrice]);
 
   const tokenImage = useMemo(
     () =>
@@ -129,26 +102,7 @@ const TickersItem = ({ symbol, navigation }) => {
             )}`}</Text>
           </View>
           <View style={[styles.nameContainer, styles.mainContainerWidth]}>
-            <View style={GlobalStyles.row}>
-              <Text
-                style={[
-                  styles.title,
-                  {
-                    color: lastPriceColor,
-                  },
-                ]}
-              >
-                {lastPrice}
-              </Text>
-              {showIcon && (
-                <AntDesign
-                  style={styles.priceIcon}
-                  name={isHigh ? "caretup" : "caretdown"}
-                  size={16}
-                  color={lastPriceColor}
-                />
-              )}
-            </View>
+            <TickerPrice closePrice={closePrice} />
 
             <Text style={styles.volume}>{`Vol (${imageSuffix}):\n${Math.floor(
               totalTradeBaseAssetVolume
@@ -231,9 +185,6 @@ const styles = StyleSheet.create({
   volume: {
     paddingTop: 4,
     fontSize: 12,
-  },
-  priceIcon: {
-    marginLeft: 3,
   },
   timeView: {
     justifyContent: "space-between",

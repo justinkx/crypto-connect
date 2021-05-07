@@ -4,6 +4,7 @@ import { SharedElement } from "react-navigation-shared-element";
 import { Ionicons } from "@expo/vector-icons";
 
 import GlobalStyles, { colors } from "../../style/GlobalStyle";
+import TickerPrice from "../Tickers/TickerPrice";
 
 const Header = ({ ticker, goBack }) => {
   const { pair, tokenImage, symbol } = ticker;
