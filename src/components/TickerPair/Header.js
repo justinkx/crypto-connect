@@ -1,10 +1,10 @@
-import React, { memo, useCallback } from "react";
+import React, { memo } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { SharedElement } from "react-navigation-shared-element";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector, shallowEqual } from "react-redux";
 
-import GlobalStyles, { colors } from "../../style/GlobalStyle";
+import GlobalStyles from "../../style/GlobalStyle";
 import TickerPrice from "../Tickers/TickerPrice";
 import { getPairClosePrice } from "../../redux/selectors/tickerPair.selector";
 import HeaderCol from "./HeaderCol";

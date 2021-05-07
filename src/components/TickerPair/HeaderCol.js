@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import { colors } from "../../style/GlobalStyle";
+import LinePlaceHolder from "../Ui/LinePlaceHolder";
 
 const HeaderCol = ({
   title,
@@ -13,7 +14,11 @@ const HeaderCol = ({
   return (
     <View style={[styles.container, containerStyle]}>
       <Text style={[styles.title, titleStyle]}>{title}</Text>
-      <Text style={[styles.value, valueStyle]}>{value}</Text>
+      {value ? (
+        <Text style={[styles.value, valueStyle]}>{value}</Text>
+      ) : (
+        <LinePlaceHolder customStyle={styles.placeholderStyle} />
+      )}
     </View>
   );
 };
@@ -36,5 +41,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "bold",
     color: colors.black,
+  },
+  placeholderStyle: {
+    height: 16,
+    width: 80,
   },
 });
