@@ -37,10 +37,12 @@ const Header = ({ ticker, goBack }) => {
             {pair}
           </Text>
         </SharedElement>
-        <TickerPrice
-          containerStyle={styles.priceContainerStyle}
-          closePrice={lastPrice}
-        />
+        <SharedElement id={`price-${symbol}`}>
+          <TickerPrice
+            containerStyle={styles.priceContainerStyle}
+            closePrice={lastPrice}
+          />
+        </SharedElement>
       </View>
     </View>
   );

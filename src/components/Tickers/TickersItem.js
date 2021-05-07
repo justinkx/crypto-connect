@@ -102,7 +102,9 @@ const TickersItem = ({ symbol, navigation }) => {
             )}`}</Text>
           </View>
           <View style={[styles.nameContainer, styles.mainContainerWidth]}>
-            <TickerPrice closePrice={closePrice} />
+            <SharedElement id={`price-${symbol}`}>
+              <TickerPrice closePrice={closePrice} />
+            </SharedElement>
 
             <Text style={styles.volume}>{`Vol (${imageSuffix}):\n${Math.floor(
               totalTradeBaseAssetVolume
