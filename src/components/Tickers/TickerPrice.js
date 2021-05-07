@@ -5,7 +5,12 @@ import { AntDesign } from "@expo/vector-icons";
 import { roundLastPrice } from "../../helpers/ticker.helpers";
 import GlobalStyles, { colors } from "../../style/GlobalStyle";
 
-const TickerPrice = ({ closePrice, titleStyle = {}, iconStyle = {} }) => {
+const TickerPrice = ({
+  closePrice,
+  titleStyle = {},
+  iconStyle = {},
+  containerStyle = {},
+}) => {
   const lastPriceRef = useRef(0);
   const lastPrice = useMemo(() => roundLastPrice(parseFloat(closePrice)), [
     closePrice,
@@ -33,7 +38,7 @@ const TickerPrice = ({ closePrice, titleStyle = {}, iconStyle = {} }) => {
     return _lastPriceColor;
   }, [closePrice]);
   return (
-    <View style={GlobalStyles.row}>
+    <View style={[GlobalStyles.row, containerStyle]}>
       <Text
         style={[
           styles.title,

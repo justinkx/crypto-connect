@@ -2,12 +2,15 @@ import React, { memo, useCallback } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { SharedElement } from "react-navigation-shared-element";
 import { Ionicons } from "@expo/vector-icons";
+import { useSelector, shallowEqual } from "react-redux";
 
 import GlobalStyles, { colors } from "../../style/GlobalStyle";
 import TickerPrice from "../Tickers/TickerPrice";
+import { getPairClosePrice } from "../../redux/selectors/tickerPair.selector";
 
 const Header = ({ ticker, goBack }) => {
-  const { pair, tokenImage, symbol } = ticker;
+  const { pair, tokenImage, symbol, closePrice } = ticker;
+  const lastPrice = useSelector(getPairClosePrice, shallowEqual) || closePrice;
 
   return (
     <View style={[styles.container]}>
@@ -34,6 +37,10 @@ const Header = ({ ticker, goBack }) => {
             {pair}
           </Text>
         </SharedElement>
+        <TickerPrice
+          containerStyle={styles.priceContainerStyle}
+          closePrice={lastPrice}
+        />
       </View>
     </View>
   );
@@ -62,5 +69,8 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     fontWeight: "bold",
+  },
+  priceContainerStyle: {
+    marginTop: 5,
   },
 });
