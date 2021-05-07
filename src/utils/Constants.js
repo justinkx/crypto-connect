@@ -1,1 +1,1 @@
-export const sharedElementDelay = 450;
+export const sharedElementDelay = 500;

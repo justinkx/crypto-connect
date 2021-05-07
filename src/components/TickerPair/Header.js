@@ -1,25 +1,39 @@
-import React, { memo } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import React, { memo, useCallback } from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { SharedElement } from "react-navigation-shared-element";
+import { Ionicons } from "@expo/vector-icons";
 
 import GlobalStyles, { colors } from "../../style/GlobalStyle";
 
-const Header = ({ ticker }) => {
+const Header = ({ ticker, goBack }) => {
   const { pair, tokenImage, symbol } = ticker;
 
   return (
-    <View>
+    <View style={[styles.container]}>
+      <TouchableOpacity onPress={goBack} style={styles.backButton}>
+        <Ionicons
+          name="ios-chevron-back"
+          size={28}
+          style={{ fontWeight: "bold" }}
+          color="black"
+        />
+      </TouchableOpacity>
       <SharedElement id={`image-${pair}`}>
         <Image
           source={tokenImage}
           resizeMethod={"auto"}
-          resizeMode={"cover"}
+          resizeMode={"stretch"}
           style={styles.icon}
         />
       </SharedElement>
-      <SharedElement id={`ticker-${symbol}`}>
-        <Text>{pair}</Text>
-      </SharedElement>
+
+      <View style={styles.nameView}>
+        <SharedElement id={`ticker-${symbol}`}>
+          <Text allowFontScaling style={styles.name}>
+            {pair}
+          </Text>
+        </SharedElement>
+      </View>
     </View>
   );
 };
@@ -27,5 +41,25 @@ const Header = ({ ticker }) => {
 export default memo(Header);
 
 const styles = StyleSheet.create({
-  icon: { width: 30, height: 30, marginRight: 10 },
+  container: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    flexGrow: 1,
+    alignItems: "flex-start",
+    paddingVertical: 10,
+    paddingRight: 15,
+  },
+  backButton: {
+    paddingHorizontal: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  nameView: {
+    width: "30%",
+  },
+  icon: { width: 60, height: 60, marginRight: 15 },
+  name: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 });

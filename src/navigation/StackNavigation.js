@@ -63,12 +63,14 @@ const sharedOptions = {
       animation: "timing",
       config: {
         delay: sharedElementDelay,
+        duration: sharedElementDelay,
       },
     },
     close: {
       animation: "timing",
       config: {
         delay: sharedElementDelay,
+        duration: sharedElementDelay,
       },
     },
   },

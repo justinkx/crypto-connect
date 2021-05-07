@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from "react";
+import React, { useEffect, memo, useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch } from "react-redux";
@@ -29,9 +29,12 @@ const TickerPairScreen = ({ route, navigation }) => {
       dispatch(resetTickerPair());
     };
   }, [symbol, dispatch]);
+  const goBack = useCallback(() => {
+    navigation.pop();
+  }, [navigation]);
   return (
     <SafeAreaView style={GlobalStyle.flex}>
-      <Header ticker={ticker} />
+      <Header goBack={goBack} ticker={ticker} />
     </SafeAreaView>
   );
 };
