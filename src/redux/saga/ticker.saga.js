@@ -1,8 +1,7 @@
-import { put, take, takeLatest } from "redux-saga/effects";
+import { put, takeLatest } from "redux-saga/effects";
 import { send } from "@giantmachines/redux-websocket";
 
-import { INITIALIZE_TICKER_CHANNEL, SAVE_TICKER } from "../action/types";
-import { tickerTransform } from "../adaptor/tickers.adaptor";
+import { INITIALIZE_TICKER_CHANNEL } from "../action/types";
 
 function* initializeWebSocketsChannel() {
   yield put(
