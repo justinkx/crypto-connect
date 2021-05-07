@@ -43,8 +43,8 @@ export default StackScreens = () => {
             },
             {
               id: `price-${symbol}`,
-              animation: "fade",
-              resize: "none",
+              animation: "move",
+              resize: "auto",
             },
           ];
         }}

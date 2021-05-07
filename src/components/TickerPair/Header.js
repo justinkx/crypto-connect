@@ -7,42 +7,55 @@ import { useSelector, shallowEqual } from "react-redux";
 import GlobalStyles, { colors } from "../../style/GlobalStyle";
 import TickerPrice from "../Tickers/TickerPrice";
 import { getPairClosePrice } from "../../redux/selectors/tickerPair.selector";
+import HeaderCol from "./HeaderCol";
 
 const Header = ({ ticker, goBack }) => {
   const { pair, tokenImage, symbol, closePrice } = ticker;
-  const lastPrice = useSelector(getPairClosePrice, shallowEqual) || closePrice;
+  const {
+    lastPrice,
+    totalNumberOfTrades,
+    bestBidPrice,
+    bestAskPrice,
+  } = useSelector(getPairClosePrice, shallowEqual);
 
   return (
-    <View style={[styles.container]}>
-      <TouchableOpacity onPress={goBack} style={styles.backButton}>
-        <Ionicons
-          name="ios-chevron-back"
-          size={28}
-          style={{ fontWeight: "bold" }}
-          color="black"
-        />
-      </TouchableOpacity>
-      <SharedElement id={`image-${pair}`}>
-        <Image
-          source={tokenImage}
-          resizeMethod={"auto"}
-          resizeMode={"stretch"}
-          style={styles.icon}
-        />
-      </SharedElement>
-
-      <View style={styles.nameView}>
-        <SharedElement id={`ticker-${symbol}`}>
-          <Text allowFontScaling style={styles.name}>
-            {pair}
-          </Text>
-        </SharedElement>
-        <SharedElement id={`price-${symbol}`}>
-          <TickerPrice
-            containerStyle={styles.priceContainerStyle}
-            closePrice={lastPrice}
+    <View>
+      <View style={[styles.container]}>
+        <TouchableOpacity onPress={goBack} style={styles.backButton}>
+          <Ionicons
+            name="ios-chevron-back"
+            size={28}
+            style={{ fontWeight: "bold" }}
+            color="black"
+          />
+        </TouchableOpacity>
+        <SharedElement id={`image-${pair}`}>
+          <Image
+            source={tokenImage}
+            resizeMethod={"auto"}
+            resizeMode={"stretch"}
+            style={styles.icon}
           />
         </SharedElement>
+
+        <View style={styles.nameView}>
+          <SharedElement id={`ticker-${symbol}`}>
+            <Text allowFontScaling style={styles.name}>
+              {pair}
+            </Text>
+          </SharedElement>
+          <SharedElement id={`price-${symbol}`}>
+            <TickerPrice
+              containerStyle={styles.priceContainerStyle}
+              closePrice={lastPrice || closePrice}
+            />
+          </SharedElement>
+        </View>
+      </View>
+      <View style={[GlobalStyles.row, styles.headerColStyle]}>
+        <HeaderCol title={"Total No Trades"} value={totalNumberOfTrades} />
+        <HeaderCol title={"Best Bid Price"} value={bestBidPrice} />
+        <HeaderCol title={"Best Ask Price"} value={bestAskPrice} />
       </View>
     </View>
   );
@@ -74,5 +87,10 @@ const styles = StyleSheet.create({
   },
   priceContainerStyle: {
     marginTop: 5,
+  },
+  headerColStyle: {
+    paddingHorizontal: 15,
+    justifyContent: "space-between",
+    marginTop: 10,
   },
 });
