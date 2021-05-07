@@ -11,12 +11,11 @@ import { useDispatch } from "react-redux";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
-import { initializeTicker } from "../../redux/action/ticker.action";
-
 import { symbols } from "../../helpers/symbol.helper";
 import GlobalStyle, { colors } from "../../style/GlobalStyle";
 import TickerSymbolPlaceholder from "../../components/Ui/TickerSymbolPlaceholder";
 import { isAndroid } from "../../helpers/platform.helpers";
+import { connectWebsocket } from "../../redux/action/action";
 
 const TickerSymbolScreen = lazy(() => import("./Symbols/TickerSymbolScreen"));
 
@@ -84,7 +83,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initializeTicker());
+    dispatch(connectWebsocket());
   }, []);
 
   const screens = useMemo(
