@@ -9,11 +9,13 @@ import {
   CLOSED,
 } from "../action/types";
 import { initializeTicker, saveTickers } from "../action/ticker.action";
+import { saveBook } from "../action/book.action";
 import { tickerTransform } from "../adaptor/tickers.adaptor";
 import { getSelectedPair } from "../selectors/tickerPair.selector";
 import { tickerPairAdaptor } from "../adaptor/tickerPair.adaptor";
 import { savePairData } from "../action/tickerPair.action";
 import { showSuccessToast, showErrorToast } from "../action/toast.action";
+import { transformBook } from "../adaptor/book.adaptor";
 
 function* reduxWebsocketMessage(action) {
   const { payload } = action;
@@ -29,6 +31,11 @@ function* reduxWebsocketMessage(action) {
       case `${pair}@ticker`:
         const data = tickerPairAdaptor(parsedMessage.data);
         yield put(savePairData(data));
+        break;
+      case `${pair}@depth5@1000ms`:
+        const book = transformBook(parsedMessage.data);
+        book.symbol = pair;
+        yield put(saveBook(book));
         break;
     }
   } catch (error) {

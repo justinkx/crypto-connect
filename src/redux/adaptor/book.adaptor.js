@@ -1,3 +1,6 @@
+import _size from "lodash/size";
+import _max from "lodash/max";
+
 export const bookAdaptor = (data) => {
   const {
     u: orderBookUpdateId, // order book updateId
@@ -18,29 +21,30 @@ export const bookAdaptor = (data) => {
 };
 
 export const transformBook = (data) => {
-  const parsedBookData = bookAdaptor(data);
-  const {
-    bestBidPrice,
-    bestBidQty,
-    bestAskPrice,
-    bestAskQty,
-    symbol,
-  } = parsedBookData;
-  const bid = {
-    [bestBidPrice]: {
-      price: bestBidPrice,
-      quantity: bestBidQty,
-    },
-  };
-  const ask = {
-    [bestAskPrice]: {
-      price: bestAskPrice,
-      quantity: bestAskQty,
-    },
-  };
+  const { bids = [], asks = [] } = data;
+  let ask = {};
+  let bid = {};
+
+  for (i = 0; i < 5; i++) {
+    const askData = asks[i];
+    const bidData = bids[i];
+    if (askData) {
+      [askPrice, askQuantity] = askData;
+      ask[askPrice] = {
+        price: askPrice,
+        quantity: askQuantity,
+      };
+    }
+    if (bidData) {
+      [bidPrice, bidQuantity] = bidData;
+      bid[bidPrice] = {
+        price: bidPrice,
+        quantity: bidQuantity,
+      };
+    }
+  }
   return {
-    bid,
     ask,
-    symbol,
+    bid,
   };
 };

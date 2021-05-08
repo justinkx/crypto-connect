@@ -10,7 +10,7 @@ function* bookListenerSaga() {
     yield put(
       send({
         method: "SUBSCRIBE",
-        params: [`${pair}@bookTicker`],
+        params: [`${pair}@depth5@1000ms`],
         id: 2,
       })
     );
@@ -21,7 +21,7 @@ function* bookResetSaga() {
   yield put(
     send({
       method: "UNSUBSCRIBE",
-      params: [`${pair}@bookTicker`],
+      params: [`${pair}@depth5@1000ms`],
       id: 3,
     })
   );
