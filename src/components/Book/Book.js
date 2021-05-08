@@ -15,6 +15,7 @@ const Book = ({ isBid, title = "Bid", prices }) => {
             price={price}
             key={price}
             selector={isBid ? getBidData : getAskData}
+            isBid={isBid}
           />
         ))}
       </View>
