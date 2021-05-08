@@ -103,7 +103,7 @@ const ToastProvider = () => {
       });
       setTimeout(() => {
         hide();
-      }, 4500);
+      }, 5000);
     }
   }, [hide, toastState]);
   const hide = useCallback(() => {

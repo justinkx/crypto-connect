@@ -2,6 +2,7 @@ import {
   SHOW_TOAST,
   SHOW_ERROR_TOAST,
   SHOW_SUCCESS_TOAST,
+  SHOW_INFO_TOAST,
   HIDE_TOAST,
 } from "../action/types";
 
@@ -30,6 +31,13 @@ export default function ToastReducer(state = initialState, action) {
         ...state,
         show: true,
         type: "success",
+        ...action.toastConfig,
+      };
+    case SHOW_INFO_TOAST:
+      return {
+        ...state,
+        show: true,
+        type: "info",
         ...action.toastConfig,
       };
     case SHOW_ERROR_TOAST:

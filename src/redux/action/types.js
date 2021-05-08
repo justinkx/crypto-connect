@@ -19,4 +19,5 @@ export const CLOSED = "REDUX_WEBSOCKET::CLOSED";
 export const SHOW_TOAST = "SHOW_TOAST";
 export const SHOW_ERROR_TOAST = "SHOW_ERROR_TOAST";
 export const SHOW_SUCCESS_TOAST = "SHOW_SUCCESS_TOAST";
+export const SHOW_INFO_TOAST = "SHOW_INFO_TOAST";
 export const HIDE_TOAST = "HIDE_TOAST";

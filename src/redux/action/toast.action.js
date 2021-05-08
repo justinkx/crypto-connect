@@ -3,6 +3,7 @@ import {
   SHOW_ERROR_TOAST,
   SHOW_SUCCESS_TOAST,
   HIDE_TOAST,
+  SHOW_INFO_TOAST,
 } from "./types";
 
 export const showToast = (toastConfig) => ({ type: SHOW_TOAST, toastConfig });
@@ -19,4 +20,9 @@ export const showErrorToast = (toastConfig) => ({
 
 export const hideToast = () => ({
   type: HIDE_TOAST,
+});
+
+export const showInfoToast = (toastConfig) => ({
+  type: SHOW_INFO_TOAST,
+  toastConfig,
 });
