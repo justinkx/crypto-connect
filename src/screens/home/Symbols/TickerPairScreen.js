@@ -1,27 +1,61 @@
-import React, { useEffect, memo, useCallback } from "react";
+import React, {
+  useEffect,
+  memo,
+  useCallback,
+  lazy,
+  Suspense,
+  useMemo,
+} from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch } from "react-redux";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import GlobalStyle from "../../../style/GlobalStyle";
+import GlobalStyle, { colors } from "../../../style/GlobalStyle";
 import {
   setTickerPair,
   resetTickerPair,
 } from "../../../redux/action/tickerPair.action";
 import Header from "../../../components/TickerPair/Header";
+import { isAndroid } from "../../../helpers/platform.helpers";
+
+const TradeScreen = lazy(() => import("../../Trade/TradeScreen"));
+
+const Tab = createMaterialTopTabNavigator();
+const tabBarOptions = {
+  scrollEnabled: true,
+
+  style: {
+    marginHorizontal: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 30,
+    padding: 0,
+    elevation: 0,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    backgroundColor: colors.white,
+  },
+  indicatorStyle: {
+    backgroundColor: "transparent",
+  },
+  labelStyle: {
+    textAlign: "center",
+    position: "relative",
+    bottom: 10,
+    fontWeight: "bold",
+  },
+  showIcon: false,
+  activeTintColor: colors.tradeTabIndicator,
+  inactiveTintColor: colors.black,
+};
 
 const TickerPairScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const { ticker } = route.params;
-  const {
-    symbol,
-    pair,
-    closePrice,
-    openPrice,
-    highPrice,
-    lowPrice,
-    tokenImage,
-  } = ticker;
+  const { symbol } = ticker;
 
   useEffect(() => {
     dispatch(setTickerPair(symbol));
@@ -32,13 +66,41 @@ const TickerPairScreen = ({ route, navigation }) => {
   const goBack = useCallback(() => {
     navigation.pop();
   }, [navigation]);
+
+  const tradeScreen = useCallback(
+    (props) => (
+      <Suspense fallback={<View></View>}>
+        <TradeScreen {...props} />
+      </Suspense>
+    ),
+    []
+  );
+
   return (
     <SafeAreaView style={GlobalStyle.flex}>
       <Header goBack={goBack} ticker={ticker} />
+      <View style={styles.tabContainer}>
+        <Tab.Navigator
+          lazy={true}
+          initialRouteName={"trades"}
+          backBehavior="order"
+          swipeEnabled={false}
+          tabBarOptions={tabBarOptions}
+          removeClippedSubviews={isAndroid}
+        >
+          <Tab.Screen name="trades" component={tradeScreen} />
+          <Tab.Screen name="book" component={tradeScreen} />
+        </Tab.Navigator>
+      </View>
     </SafeAreaView>
   );
 };
 
 export default memo(TickerPairScreen);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  tabContainer: {
+    flex: 1,
+    paddingTop: 20,
+  },
+});

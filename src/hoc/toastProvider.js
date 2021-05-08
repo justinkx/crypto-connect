@@ -87,7 +87,7 @@ const ToastProvider = () => {
         text1 = "",
         text2 = "",
         autoHide = true,
-        visibilityTime = 4500,
+        visibilityTime = 5000,
         topOffset = 30,
         bottomOffset = 40,
       } = toastState;

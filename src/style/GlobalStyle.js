@@ -7,6 +7,7 @@ export const colors = {
   black: "#000000",
   tabIndicator: "#C0C0C0",
   searchBarBorder: "#adb5bd",
+  tradeTabIndicator: "#7134eb",
 };
 
 const GlobalStyles = StyleSheet.create({
