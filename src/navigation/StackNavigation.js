@@ -26,29 +26,27 @@ export default StackScreens = () => {
         options={sharedOptions}
         name="ticker-pair"
         component={TickerPairScreen}
-        sharedElementsConfig={(route, otherRoute) => {
+        sharedElementsConfig={(route) => {
           const {
             ticker: { symbol, pair },
           } = route.params;
-          return ["trades", "books"].includes(otherRoute.name)
-            ? []
-            : [
-                {
-                  id: `ticker-${symbol}`,
-                  animation: "fade",
-                  resize: "auto",
-                },
-                {
-                  id: `image-${pair}`,
-                  animation: "fade",
-                  resize: "auto",
-                },
-                {
-                  id: `price-${symbol}`,
-                  animation: "move",
-                  resize: "auto",
-                },
-              ];
+          return [
+            {
+              id: `ticker-${symbol}`,
+              animation: "fade",
+              resize: "auto",
+            },
+            {
+              id: `image-${pair}`,
+              animation: "fade",
+              resize: "auto",
+            },
+            {
+              id: `price-${symbol}`,
+              animation: "move",
+              resize: "auto",
+            },
+          ];
         }}
       />
     </Stack.Navigator>
