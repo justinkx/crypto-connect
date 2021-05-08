@@ -1,31 +1,35 @@
 import React, { memo, useCallback } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
 import GlobalStyle from "../../style/GlobalStyle";
-import {
-  initializeBook,
-  resetBookChannel,
-} from "../../redux/action/book.action";
+import { resetBookChannel } from "../../redux/action/book.action";
+import Book from "../../components/Book/Book";
+import { getAskPrice, getBidPrice } from "../../redux/selectors/book.selector";
 
 const TradeScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
+  const askPrices = useSelector(getAskPrice, shallowEqual);
+  const bidPrices = useSelector(getBidPrice, shallowEqual);
 
   useFocusEffect(
-    React.useCallback(() => {
-      dispatch(initializeBook());
-
-      return () => dispatch(resetBookChannel());
+    useCallback(() => {
+      return () => {
+        dispatch(resetBookChannel());
+      };
     }, [dispatch])
   );
   return (
     <View style={GlobalStyle.flex}>
       <ScrollView style={GlobalStyle.scrollView}>
-        <Text>Trade Screen</Text>
         <View style={styles.bookContainer}>
-          <View style={styles.askBidBook}></View>
-          <View style={styles.askBidBook}></View>
+          <View style={styles.askBidBook}>
+            <Book prices={bidPrices} isBid title="Bid" />
+          </View>
+          <View style={styles.askBidBook}>
+            <Book prices={askPrices} isBid={false} title="Ask" />
+          </View>
         </View>
       </ScrollView>
     </View>

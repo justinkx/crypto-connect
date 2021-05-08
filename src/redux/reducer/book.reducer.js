@@ -1,6 +1,6 @@
 import _assign from "lodash/assign";
 
-import { SAVE_BOOK } from "../action/types";
+import { SAVE_BOOK, RESET_BOOK_CHANNEL } from "../action/types";
 
 const initialState = {
   ask: {},
@@ -13,16 +13,13 @@ export default function bookReducer(state = initialState, action) {
   switch (type) {
     case SAVE_BOOK:
       const { ask = {}, bid = {}, symbol = "" } = book;
-      const _ask = _assign({}, state.ask, ask);
-      const _bid = _assign({}, state.bid, bid);
-      const newBookState = _assign(
-        {},
-        state,
-        { ask: _ask },
-        { bid: _bid },
-        { symbol }
-      );
-      return newBookState;
+      return {
+        ask,
+        bid,
+        symbol,
+      };
+    case RESET_BOOK_CHANNEL:
+      return initialState;
     default:
       return state;
   }

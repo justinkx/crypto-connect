@@ -30,17 +30,25 @@ export const transformBook = (data) => {
     const bidData = bids[i];
     if (askData) {
       [askPrice, askQuantity] = askData;
-      ask[askPrice] = {
-        price: askPrice,
-        quantity: askQuantity,
-      };
+      if (askPrice == 0 || askQuantity == 0) {
+        ask[askPrice] = undefined;
+      } else {
+        ask[askPrice] = {
+          price: askPrice,
+          quantity: askQuantity,
+        };
+      }
     }
     if (bidData) {
       [bidPrice, bidQuantity] = bidData;
-      bid[bidPrice] = {
-        price: bidPrice,
-        quantity: bidQuantity,
-      };
+      if (bidPrice == 0 || bidQuantity == 0) {
+        bid[bidPrice] = undefined;
+      } else {
+        bid[bidPrice] = {
+          price: bidPrice,
+          quantity: bidQuantity,
+        };
+      }
     }
   }
   return {

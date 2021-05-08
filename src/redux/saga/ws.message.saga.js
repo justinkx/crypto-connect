@@ -1,4 +1,7 @@
 import { put, select, takeEvery, all } from "redux-saga/effects";
+import _assign from "lodash/assign";
+import _identity from "lodash/identity";
+import _pickBy from "lodash/pickBy";
 
 import {
   MESSAGE,
@@ -16,6 +19,7 @@ import { tickerPairAdaptor } from "../adaptor/tickerPair.adaptor";
 import { savePairData } from "../action/tickerPair.action";
 import { showSuccessToast, showErrorToast } from "../action/toast.action";
 import { transformBook } from "../adaptor/book.adaptor";
+import { getReducer } from "../selectors/book.selector";
 
 function* reduxWebsocketMessage(action) {
   const { payload } = action;
@@ -33,9 +37,17 @@ function* reduxWebsocketMessage(action) {
         yield put(savePairData(data));
         break;
       case `${pair}@depth5@1000ms`:
+        const { ask, bid } = yield select(getReducer);
         const book = transformBook(parsedMessage.data);
-        book.symbol = pair;
-        yield put(saveBook(book));
+        const _ask = _pickBy(_assign({}, ask, book.ask), _identity);
+        const _bid = _pickBy(_assign({}, bid, book.bid), _identity);
+        yield put(
+          saveBook({
+            bid: _bid,
+            ask: _ask,
+            symbol: pair,
+          })
+        );
         break;
     }
   } catch (error) {
