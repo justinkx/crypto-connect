@@ -11,3 +11,9 @@ export const START_TICKER_PAIR_SOCKET = "START_TICKER_PAIR_SOCKET";
 // redux websocket types
 export const MESSAGE = "REDUX_WEBSOCKET::MESSAGE";
 export const OPEN = "REDUX_WEBSOCKET::OPEN";
+
+// toast
+export const SHOW_TOAST = "SHOW_TOAST";
+export const SHOW_ERROR_TOAST = "SHOW_ERROR_TOAST";
+export const SHOW_SUCCESS_TOAST = "SHOW_SUCCESS_TOAST";
+export const HIDE_TOAST = "HIDE_TOAST";
