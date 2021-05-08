@@ -34,12 +34,12 @@ export default StackScreens = () => {
             {
               id: `ticker-${symbol}`,
               animation: "fade",
-              resize: "none",
+              resize: "auto",
             },
             {
               id: `image-${pair}`,
               animation: "fade",
-              resize: "none",
+              resize: "auto",
             },
             {
               id: `price-${symbol}`,
