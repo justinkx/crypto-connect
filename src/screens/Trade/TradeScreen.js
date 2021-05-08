@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 
@@ -21,11 +21,28 @@ const TradeScreen = ({ navigation, route }) => {
   );
   return (
     <View style={GlobalStyle.flex}>
-      <Text>Trade Screen</Text>
+      <ScrollView style={GlobalStyle.scrollView}>
+        <Text>Trade Screen</Text>
+        <View style={styles.bookContainer}>
+          <View style={styles.askBidBook}></View>
+          <View style={styles.askBidBook}></View>
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
 export default memo(TradeScreen);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  bookContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexGrow: 1,
+  },
+  askBidBook: {
+    flexDirection: "column",
+    width: "50%",
+  },
+});
