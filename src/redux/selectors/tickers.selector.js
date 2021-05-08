@@ -1,14 +1,9 @@
-import {
-  createSelector,
-  defaultMemoize,
-  createSelectorCreator,
-} from "reselect";
+import { createSelector } from "reselect";
 import memoizeOne from "memoize-one";
-import isEqual from "lodash/isEqual";
 
-const createDeepEqualSelector = createSelectorCreator(defaultMemoize, isEqual);
+import { createDeepEqualSelector } from "./selector.helper";
 
-export const getReducer = (state) => state.ticker;
+export const getReducer = (state) => state.ticker || {};
 export const getSymbols = (state) => Object.keys(getReducer(state));
 
 export const getTickerSymbols = createSelector(getReducer, (tickers) =>
