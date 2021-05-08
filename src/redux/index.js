@@ -1,13 +1,19 @@
 import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
+import reduxWebsocket from "@giantmachines/redux-websocket";
 
 import rootSaga from "./rootSaga";
 import rootReducer from "./rootReducer";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const composedEnhancers = composeWithDevTools(applyMiddleware(sagaMiddleware));
+// Create the middleware instance.
+const reduxWebsocketMiddleware = reduxWebsocket();
+
+const composedEnhancers = composeWithDevTools(
+  applyMiddleware(sagaMiddleware, reduxWebsocketMiddleware)
+);
 const store = createStore(rootReducer, composedEnhancers);
 sagaMiddleware.run(rootSaga);
 if (module.hot) {

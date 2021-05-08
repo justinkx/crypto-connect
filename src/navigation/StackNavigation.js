@@ -1,8 +1,9 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
 import HomeScreen from "../screens/home/HomeScreen";
 import TickerPairScreen from "../screens/home/Symbols/TickerPairScreen";
+import { sharedElementDelay } from "../utils/Constants";
 
 const Stack = createSharedElementStackNavigator();
 
@@ -33,17 +34,17 @@ export default StackScreens = () => {
             {
               id: `ticker-${symbol}`,
               animation: "fade",
-              resize: "none",
+              resize: "auto",
             },
             {
               id: `image-${pair}`,
               animation: "fade",
-              resize: "none",
+              resize: "auto",
             },
             {
               id: `price-${symbol}`,
-              animation: "fade",
-              resize: "none",
+              animation: "move",
+              resize: "auto",
             },
           ];
         }}
@@ -55,19 +56,21 @@ export default StackScreens = () => {
 const sharedOptions = {
   headerShown: false,
   gestureEnabled: true,
-  tabBarVisible: false,
+  tabBarVisible: true,
   animationEnabled: true,
   transitionSpec: {
     open: {
       animation: "timing",
       config: {
-        delay: 400,
+        delay: sharedElementDelay,
+        duration: sharedElementDelay,
       },
     },
     close: {
       animation: "timing",
       config: {
-        delay: 400,
+        delay: sharedElementDelay,
+        duration: sharedElementDelay,
       },
     },
   },
