@@ -24,4 +24,5 @@ export const HIDE_TOAST = "HIDE_TOAST";
 
 // book
 export const INITIALIZE_BOOK_CHANNEL = "INITIALIZE_BOOK_CHANNEL";
+export const RESET_BOOK_CHANNEL = "RESET_BOOK_CHANNEL";
 export const SAVE_BOOK = "SAVE_BOOK";
