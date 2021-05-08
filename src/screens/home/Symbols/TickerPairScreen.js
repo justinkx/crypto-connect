@@ -19,6 +19,7 @@ import {
 import Header from "../../../components/TickerPair/Header";
 import { isAndroid } from "../../../helpers/platform.helpers";
 
+const OrderBookScreen = lazy(() => import("../../OrderBook/OrderBookScreen"));
 const TradeScreen = lazy(() => import("../../Trade/TradeScreen"));
 
 const Tab = createMaterialTopTabNavigator();
@@ -67,6 +68,14 @@ const TickerPairScreen = ({ route, navigation }) => {
     navigation.pop();
   }, [navigation]);
 
+  const orderBookScreen = useCallback(
+    (props) => (
+      <Suspense fallback={<View></View>}>
+        <OrderBookScreen {...props} />
+      </Suspense>
+    ),
+    []
+  );
   const tradeScreen = useCallback(
     (props) => (
       <Suspense fallback={<View></View>}>
@@ -82,14 +91,14 @@ const TickerPairScreen = ({ route, navigation }) => {
       <View style={styles.tabContainer}>
         <Tab.Navigator
           lazy={true}
-          initialRouteName={"trades"}
+          initialRouteName={"book"}
           backBehavior="order"
           swipeEnabled={false}
           tabBarOptions={tabBarOptions}
           removeClippedSubviews={isAndroid}
         >
-          <Tab.Screen name="trades" component={tradeScreen} />
-          <Tab.Screen name="book" component={tradeScreen} />
+          <Tab.Screen name="book" component={orderBookScreen} />
+          <Tab.Screen name="trade" component={tradeScreen} />
         </Tab.Navigator>
       </View>
     </SafeAreaView>

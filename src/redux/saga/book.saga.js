@@ -22,7 +22,6 @@ function* bookListenerSaga() {
 }
 function* bookResetSaga() {
   const pair = yield select(getSelectedPair);
-  console.log("reset-pair", pair);
   if (pair) {
     yield put(
       send({

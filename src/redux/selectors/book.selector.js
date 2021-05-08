@@ -8,6 +8,8 @@ export const getReducer = (state) => state.book || {};
 export const getAsks = createSelector(getReducer, (book) => book.ask);
 export const getBids = createSelector(getReducer, (book) => book.bid);
 
+export const getSymbol = createSelector(getReducer, (book) => book.symbol);
+
 export const getAskPrice = createSelector(getAsks, (asks) => {
   const askPrices = _keys(asks);
   return askPrices.sort();
