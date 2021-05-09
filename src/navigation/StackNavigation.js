@@ -55,21 +55,19 @@ export default StackScreens = () => {
 
 const sharedOptions = {
   headerShown: false,
-  gestureEnabled: true,
+  gestureEnabled: false,
   tabBarVisible: true,
   animationEnabled: true,
   transitionSpec: {
     open: {
       animation: "timing",
       config: {
-        delay: sharedElementDelay,
         duration: sharedElementDelay,
       },
     },
     close: {
       animation: "timing",
       config: {
-        delay: sharedElementDelay,
         duration: sharedElementDelay,
       },
     },
