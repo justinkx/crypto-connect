@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 13,
     fontWeight: "bold",
-    color: "gray",
+    color: "#3b3b3b",
   },
   right: {
     paddingRight: 3,

@@ -46,5 +46,6 @@ const styles = StyleSheet.create({
   value: {
     fontSize: 13,
     fontWeight: "bold",
+    color: colors.bookQuantity,
   },
 });
