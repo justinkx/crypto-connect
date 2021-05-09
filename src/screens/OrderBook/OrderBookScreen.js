@@ -14,6 +14,7 @@ import {
   getBidPrice,
   getSymbol,
 } from "../../redux/selectors/book.selector";
+import { useAfterInteractions } from "../../helpers/useInteractions";
 
 const OrderBookScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const OrderBookScreen = ({ navigation, route }) => {
   const bidPrices = useSelector(getBidPrice, shallowEqual);
   const symbol = useSelector(getSymbol, shallowEqual);
   const isFocused = useIsFocused();
-
+  const { shouldRender } = useAfterInteractions();
   useEffect(() => {
     if (isFocused && !symbol) {
       dispatch(initializeBook());
@@ -36,14 +37,16 @@ const OrderBookScreen = ({ navigation, route }) => {
   return (
     <View style={GlobalStyle.flex}>
       <ScrollView contentContainerStyle={GlobalStyle.scrollView}>
-        <View style={styles.bookContainer}>
-          <View style={styles.askBidBook}>
-            <Book prices={bidPrices} isBid title="Bid" />
+        {shouldRender && (
+          <View style={styles.bookContainer}>
+            <View style={styles.askBidBook}>
+              <Book prices={bidPrices} isBid title="Bid" />
+            </View>
+            <View style={styles.askBidBook}>
+              <Book prices={askPrices} isBid={false} title="Ask" />
+            </View>
           </View>
-          <View style={styles.askBidBook}>
-            <Book prices={askPrices} isBid={false} title="Ask" />
-          </View>
-        </View>
+        )}
       </ScrollView>
     </View>
   );

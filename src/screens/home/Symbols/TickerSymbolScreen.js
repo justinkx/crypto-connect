@@ -52,7 +52,8 @@ const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
         value={searchValue}
         containerStyle={styles.searchContainerStyle}
       />
-     
+
+      {shouldRender && (
         <FlatList
           style={GlobalStyles.flex}
           data={symbolData}
@@ -63,7 +64,7 @@ const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
             searchValue ? NoSearchItem : TickerSymbolPlaceholder
           }
         />
-      
+      )}
     </View>
   );
 };

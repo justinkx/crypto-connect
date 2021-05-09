@@ -10,6 +10,10 @@ import { StyleSheet, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
+import {
+  SafeAreaProvider,
+  initialWindowMetrics,
+} from "react-native-safe-area-context";
 
 import { symbols } from "../../helpers/symbol.helper";
 import GlobalStyle, { colors } from "../../style/GlobalStyle";
@@ -102,7 +106,10 @@ const HomeScreen = () => {
   );
 
   return (
-    <View style={GlobalStyle.flex}>
+    <SafeAreaProvider
+      style={GlobalStyle.flex}
+      initialMetrics={initialWindowMetrics}
+    >
       <Tab.Navigator
         lazy={true}
         initialRouteName={symbols[0]}
@@ -113,7 +120,7 @@ const HomeScreen = () => {
       >
         {screens}
       </Tab.Navigator>
-    </View>
+    </SafeAreaProvider>
   );
 };
 

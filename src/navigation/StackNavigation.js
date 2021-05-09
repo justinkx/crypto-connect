@@ -8,9 +8,10 @@ const Stack = createNativeStackNavigator();
 
 export default StackScreens = () => {
   return (
-    <Stack.Navigator headerMode={"none"}>
+    <Stack.Navigator>
       <Stack.Screen
         options={{
+          headerShown: true,
           safeAreaInsets: {
             top: 0,
             bottom: 0,
@@ -38,4 +39,5 @@ const homeHeaderStyle = {
   },
   shadowRadius: 0,
   elevation: 0,
+  height: 0,
 };
