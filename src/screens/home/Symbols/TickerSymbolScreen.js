@@ -53,7 +53,7 @@ const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
         containerStyle={styles.searchContainerStyle}
       />
 
-      {shouldRender && (
+      {shouldRender && isFocused && (
         <FlatList
           style={GlobalStyles.flex}
           data={symbolData}

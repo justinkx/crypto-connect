@@ -23,21 +23,23 @@ const OrderBookScreen = ({ navigation, route }) => {
   const symbol = useSelector(getSymbol, shallowEqual);
   const isFocused = useIsFocused();
   const { shouldRender } = useAfterInteractions();
+
   useEffect(() => {
     if (isFocused && !symbol) {
       dispatch(initializeBook());
     }
-    return () => {
-      if (!isFocused) {
-        dispatch(resetBookChannel());
-      }
-    };
   }, [dispatch, symbol, isFocused]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetBookChannel());
+    };
+  }, []);
 
   return (
     <View style={GlobalStyle.flex}>
       <ScrollView contentContainerStyle={GlobalStyle.scrollView}>
-        {shouldRender && (
+        {shouldRender && isFocused && (
           <View style={styles.bookContainer}>
             <View style={styles.askBidBook}>
               <Book prices={bidPrices} isBid title="Bid" />

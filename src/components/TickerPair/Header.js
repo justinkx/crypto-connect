@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     justifyContent: "center",
     alignItems: "center",
+    width: 60,
   },
   nameView: {
     width: "30%",
