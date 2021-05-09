@@ -7,7 +7,7 @@ import BookRow from "./BookRow";
 
 const Book = ({ isBid, title = "Bid", prices }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styles[isBid ? "right" : "left"]]}>
       <Text style={styles.title}>{title}</Text>
       <View>
         {prices.map((price) => (
@@ -33,5 +33,11 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "bold",
     color: "gray",
+  },
+  right: {
+    paddingRight: 3,
+  },
+  left: {
+    paddingLeft: 3,
   },
 });

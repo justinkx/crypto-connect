@@ -12,13 +12,13 @@ export const getBids = createSelector(getReducer, (book) => book.bid);
 export const getSymbol = createSelector(getReducer, (book) => book.symbol);
 
 export const getAskPrice = createSelector(getAsks, (asks) => {
-  const askPrices = _take(_keys(asks), 20);
-  return askPrices.sort();
+  const askPrices = _keys(asks);
+  return _take(askPrices.sort(), 20);
 });
 
 export const getBidPrice = createSelector(getBids, (bids) => {
-  const bidPrices = _take(_keys(bids), 20);
-  return bidPrices.sort().reverse();
+  const bidPrices = _keys(bids);
+  return _take(bidPrices.sort().reverse(), 20);
 });
 
 export const getAskData = createDeepEqualSelector(getAsks, (asks) =>

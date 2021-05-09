@@ -36,7 +36,7 @@ function* reduxWebsocketMessage(action) {
         const data = tickerPairAdaptor(parsedMessage.data);
         yield put(savePairData(data));
         break;
-      case `${pair}@depth5@1000ms`:
+      case `${pair}@depth@1000ms`:
         const { ask, bid } = yield select(getReducer);
         const book = transformBook(parsedMessage.data);
         const _ask = _pickBy(_assign({}, ask, book.ask), _identity);
@@ -46,6 +46,8 @@ function* reduxWebsocketMessage(action) {
             bid: _bid,
             ask: _ask,
             symbol: pair,
+            firstUpdateId: book.firstUpdateId,
+            finalUpdateId: book.finalUpdateId,
           })
         );
         break;

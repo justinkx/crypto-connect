@@ -6,17 +6,27 @@ const initialState = {
   ask: {},
   bid: {},
   symbol: "",
+  firstUpdateId: "",
+  finalUpdateId: "",
 };
 
 export default function bookReducer(state = initialState, action) {
   const { type, book } = action;
   switch (type) {
     case SAVE_BOOK:
-      const { ask = {}, bid = {}, symbol = "" } = book;
+      const {
+        ask = {},
+        bid = {},
+        symbol = "",
+        firstUpdateId,
+        finalUpdateId,
+      } = book;
       return {
         ask,
         bid,
         symbol,
+        firstUpdateId,
+        finalUpdateId,
       };
     case RESET_BOOK_CHANNEL:
       return initialState;

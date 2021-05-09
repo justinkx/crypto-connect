@@ -55,13 +55,13 @@ export const transformBookStream = (data) => {
 };
 
 export const transformBook = (data) => {
-  const { bids = [], asks = [] } = data;
+  const { b = [], a = [], U, u } = data;
   let ask = {};
   let bid = {};
 
   for (i = 0; i < 5; i++) {
-    const askData = asks[i];
-    const bidData = bids[i];
+    const askData = a[i];
+    const bidData = b[i];
     if (askData) {
       [askPrice, askQuantity] = askData;
       if (askPrice == 0 || askQuantity == 0) {
@@ -88,5 +88,7 @@ export const transformBook = (data) => {
   return {
     ask,
     bid,
+    firstUpdateId: U,
+    finalUpdateId: u,
   };
 };
