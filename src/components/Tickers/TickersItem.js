@@ -10,7 +10,6 @@ import {
 import { useSelector, shallowEqual } from "react-redux";
 import isEqual from "lodash/isEqual";
 import { format } from "date-fns";
-import { SharedElement } from "react-navigation-shared-element";
 
 import { getSymbolTicker } from "../../redux/selectors/tickers.selector";
 import { getSymbolPair } from "../../helpers/symbol.helper";
@@ -81,30 +80,24 @@ const TickersItem = ({ symbol, navigation }) => {
         scrollEventThrottle={100}
       >
         <TableRow onClick={onTickerClick} width={width}>
-          <SharedElement id={`image-${pair}`}>
-            <Image
-              source={tokenImage}
-              defaultSource={DefaultCoin}
-              resizeMethod={"auto"}
-              resizeMode={"cover"}
-              style={styles.icon}
-              onError={onImageLoadError}
-            />
-          </SharedElement>
+          <Image
+            source={tokenImage}
+            defaultSource={DefaultCoin}
+            resizeMethod={"auto"}
+            resizeMode={"cover"}
+            style={styles.icon}
+            onError={onImageLoadError}
+          />
 
           <View style={styles.nameContainer}>
-            <SharedElement id={`ticker-${symbol}`}>
-              <Text style={styles.title}>{pair}</Text>
-            </SharedElement>
+            <Text style={styles.title}>{pair}</Text>
 
             <Text style={styles.volume}>{`Vol (${suffix}): \n${Math.floor(
               totalTradeQuoteAssetVolume
             )}`}</Text>
           </View>
           <View style={[styles.nameContainer, styles.mainContainerWidth]}>
-            <SharedElement id={`price-${symbol}`}>
-              <TickerPrice closePrice={closePrice} />
-            </SharedElement>
+            <TickerPrice closePrice={closePrice} />
 
             <Text style={styles.volume}>{`Vol (${imageSuffix}):\n${Math.floor(
               totalTradeBaseAssetVolume

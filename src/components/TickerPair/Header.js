@@ -1,6 +1,5 @@
 import React, { memo } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import { SharedElement } from "react-navigation-shared-element";
 import { Ionicons } from "@expo/vector-icons";
 import { useSelector, shallowEqual } from "react-redux";
 
@@ -29,27 +28,21 @@ const Header = ({ ticker, goBack }) => {
             color="black"
           />
         </TouchableOpacity>
-        <SharedElement id={`image-${pair}`}>
-          <Image
-            source={tokenImage}
-            resizeMethod={"auto"}
-            resizeMode={"stretch"}
-            style={styles.icon}
-          />
-        </SharedElement>
+        <Image
+          source={tokenImage}
+          resizeMethod={"auto"}
+          resizeMode={"stretch"}
+          style={styles.icon}
+        />
 
         <View style={styles.nameView}>
-          <SharedElement id={`ticker-${symbol}`}>
-            <Text allowFontScaling style={styles.name}>
-              {pair}
-            </Text>
-          </SharedElement>
-          <SharedElement id={`price-${symbol}`}>
-            <TickerPrice
-              containerStyle={styles.priceContainerStyle}
-              closePrice={lastPrice || closePrice}
-            />
-          </SharedElement>
+          <Text allowFontScaling style={styles.name}>
+            {pair}
+          </Text>
+          <TickerPrice
+            containerStyle={styles.priceContainerStyle}
+            closePrice={lastPrice || closePrice}
+          />
         </View>
       </View>
       <View style={[GlobalStyles.row, styles.headerColStyle]}>

@@ -9,7 +9,7 @@ import React, {
 import { StyleSheet, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+import { createNativeStackNavigator } from "react-native-screens/native-stack";
 
 import { symbols } from "../../helpers/symbol.helper";
 import GlobalStyle, { colors } from "../../style/GlobalStyle";
@@ -20,7 +20,7 @@ import { connectWebsocket } from "../../redux/action/action";
 const TickerSymbolScreen = lazy(() => import("./Symbols/TickerSymbolScreen"));
 
 const Tab = createMaterialTopTabNavigator();
-const Stack = createSharedElementStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const tabBarOptions = {
   scrollEnabled: true,
