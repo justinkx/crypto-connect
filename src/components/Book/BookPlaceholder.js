@@ -28,12 +28,12 @@ const styles = StyleSheet.create({
   },
   price: {
     width: 100,
-    height: 16,
+    height: 14,
     borderRadius: 2,
   },
   value: {
     width: 60,
-    height: 16,
+    height: 14,
     borderRadius: 2,
   },
 });

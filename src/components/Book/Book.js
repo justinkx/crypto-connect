@@ -1,19 +1,24 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import { colors } from "../../style/GlobalStyle";
 import { getAskData, getBidData } from "../../redux/selectors/book.selector";
 import BookRow from "./BookRow";
 
-const Book = ({ isBid, title = "Bid", prices }) => {
+const Book = ({ isBid, title = "Bid", prices = [] }) => {
+  const calPrices = useMemo(() => {
+    const arr = new Array(20).fill(null);
+    arr.splice(0, prices.length, ...prices);
+    return arr;
+  }, [prices]);
+
   return (
     <View style={[styles.container, styles[isBid ? "right" : "left"]]}>
       <Text style={styles.title}>{title}</Text>
       <View>
-        {prices.map((price) => (
+        {calPrices.map((price, index) => (
           <BookRow
             price={price}
-            key={price}
+            key={index}
             selector={isBid ? getBidData : getAskData}
             isBid={isBid}
           />

@@ -35,7 +35,7 @@ const OrderBookScreen = ({ navigation, route }) => {
 
   return (
     <View style={GlobalStyle.flex}>
-      <ScrollView style={GlobalStyle.scrollView}>
+      <ScrollView contentContainerStyle={GlobalStyle.scrollView}>
         <View style={styles.bookContainer}>
           <View style={styles.askBidBook}>
             <Book prices={bidPrices} isBid title="Bid" />

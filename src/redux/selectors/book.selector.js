@@ -22,7 +22,7 @@ export const getBidPrice = createSelector(getBids, (bids) => {
 });
 
 export const getAskData = createDeepEqualSelector(getAsks, (asks) =>
-  memoizeOne((price) => asks[price])
+  memoizeOne((price) => (price ? asks[price] : null))
 );
 
 export const getBidData = createDeepEqualSelector(getBids, (bids) =>

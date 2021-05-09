@@ -3,11 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import { useSelector, shallowEqual } from "react-redux";
 
 import { colors } from "../../style/GlobalStyle";
+import BookPlaceholder from "./BookPlaceholder";
 
 const QTY_DECIMAL_PLACES = 3;
 
 const BookRow = ({ price, selector, isBid }) => {
   const rowData = useSelector((state) => selector(state)(price), shallowEqual);
+
+  if (!price) return <BookPlaceholder isBid={isBid} />;
 
   return (
     <View style={styles.rowContainer}>
