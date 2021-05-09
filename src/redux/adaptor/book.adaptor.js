@@ -20,6 +20,40 @@ export const bookAdaptor = (data) => {
   };
 };
 
+export const transformBookStream = (data) => {
+  const transformedBook = bookAdaptor(data);
+  const {
+    orderBookUpdateId,
+    symbol,
+    bestBidPrice,
+    bestBidQty,
+    bestAskPrice,
+    bestAskQty,
+  } = transformedBook;
+  const ask = {
+    [bestAskPrice]:
+      bestAskQty == 0
+        ? undefined
+        : {
+            price: bestAskPrice,
+            quantity: bestAskQty,
+          },
+  };
+  const bid = {
+    [bestBidPrice]:
+      bestBidQty == 0
+        ? undefined
+        : {
+            price: bestBidPrice,
+            quantity: bestBidQty,
+          },
+  };
+  return {
+    ask,
+    bid,
+  };
+};
+
 export const transformBook = (data) => {
   const { bids = [], asks = [] } = data;
   let ask = {};
