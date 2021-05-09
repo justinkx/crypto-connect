@@ -74,6 +74,7 @@ const TickerStack = memo(({ route }) => {
         initialParams={{ symbol }}
         name="ticker-screen"
         component={TickerSymbol}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

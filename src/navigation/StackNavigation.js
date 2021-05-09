@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 
 export default StackScreens = () => {
   return (
-    <Stack.Navigator headerMode={"screen"}>
+    <Stack.Navigator headerMode={"none"}>
       <Stack.Screen
         options={{
           safeAreaInsets: {
@@ -17,11 +17,16 @@ export default StackScreens = () => {
           },
           title: "",
           headerStyle: homeHeaderStyle,
+          headerHideShadow: true,
         }}
         name="home"
         component={HomeScreen}
       />
-      <Stack.Screen name="ticker-pair" component={TickerPairScreen} />
+      <Stack.Screen
+        options={{ headerShown: false, headerHideShadow: true }}
+        name="ticker-pair"
+        component={TickerPairScreen}
+      />
     </Stack.Navigator>
   );
 };
