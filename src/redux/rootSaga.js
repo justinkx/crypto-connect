@@ -5,6 +5,7 @@ import tickerPairSaga from "./saga/tickerPair.saga";
 import websocketConnectionSaga from "./saga/ws.connection.saga";
 import wsMessageSaga from "./saga/ws.message.saga";
 import bookSaga from "./saga/book.saga";
+import tradesSaga from "./saga/trades.saga";
 
 export default function* rootSaga() {
   yield spawn(websocketConnectionSaga);
@@ -12,4 +13,5 @@ export default function* rootSaga() {
   yield spawn(tickerSaga);
   yield spawn(tickerPairSaga);
   yield spawn(bookSaga);
+  yield spawn(tradesSaga);
 }
