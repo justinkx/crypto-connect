@@ -60,9 +60,11 @@ function* reduxWebsocketMessage(action) {
         if (tradeKeys.length === 20) {
           const replaceKey = _findLast(tradeKeys);
           delete currTrades[replaceKey];
-          return yield put(saveTrades({ ...newTrades, ...currTrades }));
+          const nextTrades = _assign({}, newTrades, currTrades);
+          return yield put(saveTrades(nextTrades));
         } else {
-          return yield put(saveTrades({ ...newTrades, ...currTrades }));
+          const nextTrades = _assign({}, newTrades, currTrades);
+          return yield put(saveTrades(nextTrades));
         }
     }
   } catch (error) {

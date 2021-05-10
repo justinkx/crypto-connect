@@ -1,10 +1,11 @@
-import { put, takeLatest, select } from "redux-saga/effects";
+import { put, takeLatest, select, all } from "redux-saga/effects";
 import { send } from "@giantmachines/redux-websocket";
 
 import { SET_TICKER_PAIR, RESET_TICKER_PAIR } from "../action/types";
 import { startTickerPairSocket } from "../action/tickerPair.action";
 import { getSelectedPair } from "../selectors/tickerPair.selector";
 import { initializeBook } from "../action/book.action";
+import { initializeChannel } from "../action/trades.action";
 
 function* tickerPairListenerSaga() {
   yield put(startTickerPairSocket());
@@ -17,7 +18,7 @@ function* tickerPairListenerSaga() {
         id: 2,
       })
     );
-    yield put(initializeBook());
+    yield all([put(initializeBook()), put(initializeChannel())]);
   }
 }
 function* tickerResetSaga() {

@@ -4,6 +4,7 @@ import { send } from "@giantmachines/redux-websocket";
 import {
   INITIALIZE_TRADES_CHANNEL,
   RESET_TRADES_CHANNEL,
+  RESET_TICKER_PAIR,
 } from "../action/types";
 import { getSelectedPair } from "../selectors/tickerPair.selector";
 
@@ -35,5 +36,5 @@ function* tradesResetSaga() {
 
 export default function* tradesSaga() {
   yield takeLatest(INITIALIZE_TRADES_CHANNEL, tradesListenerSaga);
-  yield takeLatest([RESET_TRADES_CHANNEL], tradesResetSaga);
+  yield takeLatest([RESET_TRADES_CHANNEL, RESET_TICKER_PAIR], tradesResetSaga);
 }
