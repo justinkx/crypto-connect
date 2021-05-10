@@ -47,23 +47,25 @@ const TickerSymbolScreen = ({ route, isFocused, navigation }) => {
   }, [isFocused]);
   return (
     <View style={GlobalStyles.flex}>
-      <SearchBar
-        onValueChange={onValueChange}
-        value={searchValue}
-        containerStyle={styles.searchContainerStyle}
-      />
-     
-        <FlatList
-          style={GlobalStyles.flex}
-          data={symbolData}
-          keyExtractor={(item) => item}
-          renderItem={renderItem}
-          contentContainerStyle={styles.scrollStyle}
-          ListEmptyComponent={
-            searchValue ? NoSearchItem : TickerSymbolPlaceholder
-          }
-        />
-      
+      {shouldRender && isFocused && (
+        <>
+          <SearchBar
+            onValueChange={onValueChange}
+            value={searchValue}
+            containerStyle={styles.searchContainerStyle}
+          />
+          <FlatList
+            style={GlobalStyles.flex}
+            data={symbolData}
+            keyExtractor={(item) => item}
+            renderItem={renderItem}
+            contentContainerStyle={styles.scrollStyle}
+            ListEmptyComponent={
+              searchValue ? NoSearchItem : TickerSymbolPlaceholder
+            }
+          />
+        </>
+      )}
     </View>
   );
 };

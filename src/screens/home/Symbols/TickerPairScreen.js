@@ -93,7 +93,7 @@ const TickerPairScreen = ({ route, navigation }) => {
           lazy={true}
           initialRouteName={"book"}
           backBehavior="order"
-          swipeEnabled={false}
+          swipeEnabled={true}
           tabBarOptions={tabBarOptions}
           removeClippedSubviews={isAndroid}
         >

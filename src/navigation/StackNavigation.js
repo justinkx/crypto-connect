@@ -1,85 +1,32 @@
 import React from "react";
-import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+import { createNativeStackNavigator } from "react-native-screens/native-stack";
 
 import HomeScreen from "../screens/home/HomeScreen";
 import TickerPairScreen from "../screens/home/Symbols/TickerPairScreen";
-import { sharedElementDelay } from "../utils/Constants";
 
-const Stack = createSharedElementStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default StackScreens = () => {
   return (
-    <Stack.Navigator headerMode={"screen"}>
+    <Stack.Navigator>
       <Stack.Screen
         options={{
-          safeAreaInsets: {
-            top: 0,
-            bottom: 0,
-          },
-          title: "",
+          headerShown: false,
           headerStyle: homeHeaderStyle,
+          headerHideShadow: true,
         }}
         name="home"
         component={HomeScreen}
       />
       <Stack.Screen
-        options={sharedOptions}
+        options={{ headerShown: false, headerHideShadow: true }}
         name="ticker-pair"
         component={TickerPairScreen}
-        sharedElementsConfig={(route) => {
-          const {
-            ticker: { symbol, pair },
-          } = route.params;
-          return [
-            {
-              id: `ticker-${symbol}`,
-              animation: "fade",
-              resize: "auto",
-            },
-            {
-              id: `image-${pair}`,
-              animation: "fade",
-              resize: "auto",
-            },
-            {
-              id: `price-${symbol}`,
-              animation: "move",
-              resize: "auto",
-            },
-          ];
-        }}
       />
     </Stack.Navigator>
   );
 };
 
-const sharedOptions = {
-  headerShown: false,
-  gestureEnabled: false,
-  tabBarVisible: true,
-  animationEnabled: true,
-  transitionSpec: {
-    open: {
-      animation: "timing",
-      config: {
-        duration: sharedElementDelay,
-      },
-    },
-    close: {
-      animation: "timing",
-      config: {
-        duration: sharedElementDelay,
-      },
-    },
-  },
-  cardStyleInterpolator: ({ current: { progress } }) => {
-    return {
-      cardStyle: {
-        opacity: progress,
-      },
-    };
-  },
-};
 const homeHeaderStyle = {
   shadowOpacity: 0,
   shadowOffset: {
@@ -87,4 +34,5 @@ const homeHeaderStyle = {
   },
   shadowRadius: 0,
   elevation: 0,
+  height: 0,
 };

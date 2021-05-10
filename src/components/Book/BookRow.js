@@ -7,10 +7,10 @@ import BookPlaceholder from "./BookPlaceholder";
 
 const QTY_DECIMAL_PLACES = 3;
 
-const BookRow = ({ price, selector, isBid }) => {
+const BookRow = ({ price, selector, isBid, width }) => {
   const rowData = useSelector((state) => selector(state)(price), shallowEqual);
 
-  if (!price) return <BookPlaceholder isBid={isBid} />;
+  if (!price) return <BookPlaceholder isBid={isBid} width={width} />;
 
   return (
     <View style={styles.rowContainer}>
@@ -19,6 +19,7 @@ const BookRow = ({ price, selector, isBid }) => {
           ? parseFloat(rowData.quantity).toFixed(QTY_DECIMAL_PLACES)
           : rowData.price}
       </Text>
+
       <Text style={[styles.value, isBid && styles.bidColor]}>
         {isBid
           ? rowData.price
