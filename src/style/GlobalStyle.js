@@ -9,8 +9,8 @@ export const colors = {
   searchBarBorder: "#adb5bd",
   tradeTabIndicator: "#7134eb",
   bookQuantity: "#747c8a",
-  askBackground: "#f84960",
-  bidBackground: "#02c076",
+  askBackground: "rgba(248, 73, 96,0.25)",
+  bidBackground: "rgba(2, 192, 118, 0.25)",
 };
 
 const GlobalStyles = StyleSheet.create({

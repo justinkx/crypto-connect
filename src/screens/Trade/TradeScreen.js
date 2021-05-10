@@ -45,7 +45,6 @@ const TradeScreen = ({ isFocused }) => {
             </View>
           </View>
           <FlatList
-            contentContainerStyle={styles.contentStyle}
             style={GlobalStyle.flex}
             data={trades}
             keyExtractor={(_, index) => index.toString()}
@@ -72,9 +71,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#3b3b3b",
   },
-  contentStyle: {
-    paddingHorizontal: 10,
-  },
+
   contentView: { width: "30%" },
   alignEnd: {
     alignItems: "flex-end",

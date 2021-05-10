@@ -8,7 +8,12 @@ import { fixedDecimals } from "../../helpers/number.helpers";
 const Trades = ({ trade }) => {
   const { price, quantity, tradeTime, isMarketOrder } = trade;
   return (
-    <View style={styles.row}>
+    <View
+      style={[
+        styles.row,
+        isMarketOrder ? styles.bidBackground : styles.askBackground,
+      ]}
+    >
       <View style={styles.contentView}>
         <Text style={[styles.value, isMarketOrder ? styles.bid : styles.ask]}>
           {price}
@@ -33,12 +38,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     height: 30,
+    paddingHorizontal: 10,
+  },
+  bidBackground: {
+    backgroundColor: colors.bidBackground,
+  },
+  askBackground: {
+    backgroundColor: colors.askBackground,
   },
   contentView: { width: "30%" },
   value: {
     fontSize: 13,
     fontWeight: "bold",
-    color: colors.bookQuantity,
+    color: "#474d57",
   },
 
   alignEnd: {
