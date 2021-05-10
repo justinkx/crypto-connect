@@ -9,7 +9,7 @@ A React-Native crypto trade platform implementation making use of [binance-api](
 
 iOS ✔️ ❤️ Android ✔️
 
-<img src="https://user-images.githubusercontent.com/28846043/117526509-5006ec00-afe3-11eb-9b23-d53e0f23145e.gif" width="400" />
+[![Watch the video](https://user-images.githubusercontent.com/28846043/117689156-1b5b8600-b1d7-11eb-98f4-3a77a54f39e3.jpeg)](https://user-images.githubusercontent.com/28846043/117688729-adaf5a00-b1d6-11eb-840a-7ba69916667b.mp4)
 
 ## How To Run
 

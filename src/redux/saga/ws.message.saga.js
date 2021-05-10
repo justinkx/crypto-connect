@@ -2,6 +2,8 @@ import { put, select, takeEvery, all } from "redux-saga/effects";
 import _assign from "lodash/assign";
 import _identity from "lodash/identity";
 import _pickBy from "lodash/pickBy";
+import _keys from "lodash/keys";
+import _findLast from "lodash/findLast";
 
 import {
   MESSAGE,
@@ -20,6 +22,9 @@ import { savePairData } from "../action/tickerPair.action";
 import { showSuccessToast, showErrorToast } from "../action/toast.action";
 import { transformBook } from "../adaptor/book.adaptor";
 import { getReducer } from "../selectors/book.selector";
+import { transformedTrade } from "../adaptor/trades.adaptor";
+import { getTradesReducer } from "../selectors/trades.selector";
+import { saveTrades } from "../action/trades.action";
 
 function* reduxWebsocketMessage(action) {
   const { payload } = action;
@@ -30,18 +35,16 @@ function* reduxWebsocketMessage(action) {
     switch (parsedMessage?.stream) {
       case "!miniTicker@arr":
         const tickers = tickerTransform(parsedMessage.data);
-        yield put(saveTickers(tickers));
-        break;
+        return yield put(saveTickers(tickers));
       case `${pair}@ticker`:
         const data = tickerPairAdaptor(parsedMessage.data);
-        yield put(savePairData(data));
-        break;
+        return yield put(savePairData(data));
       case `${pair}@depth@1000ms`:
         const { ask, bid } = yield select(getReducer);
         const book = transformBook(parsedMessage.data);
         const _ask = _pickBy(_assign({}, ask, book.ask), _identity);
         const _bid = _pickBy(_assign({}, bid, book.bid), _identity);
-        yield put(
+        return yield put(
           saveBook({
             bid: _bid,
             ask: _ask,
@@ -50,7 +53,19 @@ function* reduxWebsocketMessage(action) {
             finalUpdateId: book.finalUpdateId,
           })
         );
-        break;
+      case `${pair}@trade`:
+        const newTrades = transformedTrade(parsedMessage.data);
+        const currTrades = yield select(getTradesReducer);
+        const tradeKeys = _keys(currTrades);
+        if (tradeKeys.length === 25) {
+          const replaceKey = _findLast(tradeKeys);
+          delete currTrades[replaceKey];
+          const nextTrades = _assign({}, newTrades, currTrades);
+          return yield put(saveTrades(nextTrades));
+        } else {
+          const nextTrades = _assign({}, newTrades, currTrades);
+          return yield put(saveTrades(nextTrades));
+        }
     }
   } catch (error) {
     console.log("error", error);
