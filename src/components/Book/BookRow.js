@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useSelector, shallowEqual } from "react-redux";
+import SkeletonContent from "react-native-skeleton-content";
 
 import { colors } from "../../style/GlobalStyle";
 import BookPlaceholder from "./BookPlaceholder";
@@ -10,10 +11,10 @@ const QTY_DECIMAL_PLACES = 3;
 const BookRow = ({ price, selector, isBid }) => {
   const rowData = useSelector((state) => selector(state)(price), shallowEqual);
 
-  if (!price) return <BookPlaceholder isBid={isBid} />;
+  // if (!price) return <BookPlaceholder isBid={isBid} />;
 
   return (
-    <View style={styles.rowContainer}>
+    <SkeletonContent isLoading={!price} containerStyle={styles.rowContainer}>
       <Text style={[styles.value, !isBid && styles.askColor]}>
         {isBid
           ? parseFloat(rowData.quantity).toFixed(QTY_DECIMAL_PLACES)
@@ -24,7 +25,7 @@ const BookRow = ({ price, selector, isBid }) => {
           ? rowData.price
           : parseFloat(rowData.quantity).toFixed(QTY_DECIMAL_PLACES)}
       </Text>
-    </View>
+    </SkeletonContent>
   );
 };
 
