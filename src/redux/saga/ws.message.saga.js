@@ -57,7 +57,7 @@ function* reduxWebsocketMessage(action) {
         const newTrades = transformedTrade(parsedMessage.data);
         const currTrades = yield select(getTradesReducer);
         const tradeKeys = _keys(currTrades);
-        if (tradeKeys.length === 20) {
+        if (tradeKeys.length === 25) {
           const replaceKey = _findLast(tradeKeys);
           delete currTrades[replaceKey];
           const nextTrades = _assign({}, newTrades, currTrades);

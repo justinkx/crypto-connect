@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { format } from "date-fns";
 
-import GlobalStyle, { colors } from "../../style/GlobalStyle";
+import { colors } from "../../style/GlobalStyle";
 import { fixedDecimals } from "../../helpers/number.helpers";
 
 const Trades = ({ trade }) => {
@@ -16,7 +16,7 @@ const Trades = ({ trade }) => {
     >
       <View style={styles.contentView}>
         <Text style={[styles.value, isMarketOrder ? styles.bid : styles.ask]}>
-          {price}
+          {`${isMarketOrder ? "\u2191" : "\u2193"} ${price}`}
         </Text>
       </View>
       <View style={[styles.contentView, styles.alignEnd]}>
@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 30,
     paddingHorizontal: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.white,
   },
   bidBackground: {
     backgroundColor: colors.bidBackground,
