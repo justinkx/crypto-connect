@@ -11,12 +11,7 @@ export default StackScreens = () => {
     <Stack.Navigator>
       <Stack.Screen
         options={{
-          headerShown: true,
-          safeAreaInsets: {
-            top: 0,
-            bottom: 0,
-          },
-          title: "",
+          headerShown: false,
           headerStyle: homeHeaderStyle,
           headerHideShadow: true,
         }}
