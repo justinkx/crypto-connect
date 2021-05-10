@@ -1,11 +1,12 @@
 import React, { memo, useMemo, Fragment } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 
 import { getAskData, getBidData } from "../../redux/selectors/book.selector";
 import BookRow from "./BookRow";
 import { useAfterInteractions } from "../../helpers/useInteractions";
 
 const Book = ({ isBid, title = "Bid", prices = [] }) => {
+  const { width } = useWindowDimensions();
   const { shouldRender } = useAfterInteractions();
   const calPrices = useMemo(() => {
     const arr = new Array(20).fill(null);
@@ -21,6 +22,7 @@ const Book = ({ isBid, title = "Bid", prices = [] }) => {
           <Fragment key={index}>
             {shouldRender && (
               <BookRow
+                width={width / 2 - 15}
                 price={price}
                 selector={isBid ? getBidData : getAskData}
                 isBid={isBid}

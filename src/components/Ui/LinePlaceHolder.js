@@ -1,12 +1,27 @@
 import React, { memo } from "react";
-import { View } from "react-native";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import ContentLoader, { Rect } from "react-content-loader/native";
 
-const LinePlaceHolder = ({ customStyle = {} }) => {
+import { colors } from "../../style/GlobalStyle";
+
+const LinePlaceHolder = ({ width = 100, height = 20, borderRadius = 2 }) => {
   return (
-    <SkeletonPlaceholder>
-      <View style={[{ width: 60, height: 14, borderRadius: 2 }, customStyle]} />
-    </SkeletonPlaceholder>
+    <ContentLoader
+      speed={1}
+      width={width}
+      height={30}
+      viewBox={`0 0 ${width} 30`}
+      backgroundColor={colors.tabIndicator}
+      foregroundColor="#ecebeb"
+    >
+      <Rect
+        x="0"
+        y="10"
+        rx={borderRadius}
+        ry={borderRadius}
+        width={width}
+        height={height}
+      />
+    </ContentLoader>
   );
 };
 
