@@ -27,10 +27,7 @@ expo start
 
 ## Expo Snack
 
-<iframe
-  src="https://snack.expo.io/@justinkx/crypto-connect"
-  style="width:100%; height:400px;"
-></iframe>
+<iframe src="https://snack.expo.io/@justinkx/crypto-connect" style="width:100%; height:400px;"></iframe>
 
 [crypto-connect](https://snack.expo.io/@justinkx/crypto-connect)
 
