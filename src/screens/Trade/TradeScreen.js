@@ -1,18 +1,25 @@
-import React, { memo, useCallback, useEffect } from "react";
+import React, { memo, useCallback, useEffect, useMemo } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import _toUpper from "lodash/toUpper";
 
 import { resetTradesChannel } from "../../redux/action/trades.action";
 import { getTrades } from "../../redux/selectors/trades.selector";
-import GlobalStyle, { colors } from "../../style/GlobalStyle";
+import GlobalStyle from "../../style/GlobalStyle";
 import Trades from "../../components/Trades/Trades";
 import withFocus from "../../hoc/withFocus";
 import { useAfterInteractions } from "../../helpers/useInteractions";
+import { getSelectedPair } from "../../redux/selectors/tickerPair.selector";
+import { getSymbolPair } from "../../helpers/symbol.helper";
 
 const TradeScreen = ({ isFocused }) => {
   const dispatch = useDispatch();
   const { shouldRender } = useAfterInteractions();
   const trades = useSelector(getTrades, shallowEqual);
+  const pair = useSelector(getSelectedPair, shallowEqual);
+  const { imageSuffix, suffix } = useMemo(() => getSymbolPair(_toUpper(pair)), [
+    pair,
+  ]);
 
   useEffect(() => {
     return () => {
@@ -28,10 +35,10 @@ const TradeScreen = ({ isFocused }) => {
         <>
           <View style={styles.row}>
             <View style={styles.contentView}>
-              <Text style={styles.title}>Price</Text>
+              <Text style={styles.title}>Price ({suffix})</Text>
             </View>
             <View style={[styles.contentView, styles.alignEnd]}>
-              <Text style={styles.title}>Amount</Text>
+              <Text style={styles.title}>Amount ({imageSuffix})</Text>
             </View>
             <View style={[styles.contentView, styles.alignEnd]}>
               <Text style={styles.title}>Time</Text>
