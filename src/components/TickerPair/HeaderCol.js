@@ -17,7 +17,7 @@ const HeaderCol = ({
       {value ? (
         <Text style={[styles.value, valueStyle]}>{value}</Text>
       ) : (
-        <LinePlaceHolder customStyle={styles.placeholderStyle} />
+        <LinePlaceHolder height={16} width={100} />
       )}
     </View>
   );
@@ -41,9 +41,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
     color: colors.black,
-  },
-  placeholderStyle: {
-    height: 16,
-    width: 80,
   },
 });
