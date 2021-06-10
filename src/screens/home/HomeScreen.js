@@ -51,7 +51,7 @@ const tabBarOptions = {
     fontWeight: "bold",
   },
   indicatorStyle: {
-    backgroundColor: colors.tabIndicator,
+    backgroundColor: "#253248",
     width: 80,
     height: 30,
     borderRadius: 10,

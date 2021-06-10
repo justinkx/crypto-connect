@@ -11,6 +11,10 @@ const Chart = ({ pair = "BTCBUSD" }) => {
       }}
     >
       <WebView
+        cacheEnabled
+        cacheMode={"LOAD_DEFAULT"}
+        pullToRefreshEnabled={false}
+        showsVerticalScrollIndicator={false}
         source={{ uri: `https://crypto-connect-web.vercel.app/?pair=${pair}` }}
       />
     </View>
