@@ -4,6 +4,7 @@
     "slug": "crypto-connect",
     "version": "1.0.0",
     "orientation": "portrait",
+    "githubUrl": "https://github.com/justinkx/crypto-connect.git",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
@@ -15,13 +16,15 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.crypto.connect.project"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.crypto.connect.project"
     },
     "web": {
       "favicon": "./assets/favicon.png"
