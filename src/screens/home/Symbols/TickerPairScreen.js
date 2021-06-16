@@ -18,6 +18,7 @@ import {
 } from "../../../redux/action/tickerPair.action";
 import Header from "../../../components/TickerPair/Header";
 import { isAndroid } from "../../../helpers/platform.helpers";
+import Chart from "../../../components/Chart/Chart";
 
 const OrderBookScreen = lazy(() => import("../../OrderBook/OrderBookScreen"));
 const TradeScreen = lazy(() => import("../../Trade/TradeScreen"));
@@ -88,7 +89,9 @@ const TickerPairScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView style={GlobalStyle.flex}>
       <Header goBack={goBack} ticker={ticker} />
+
       <View style={styles.tabContainer}>
+        <Chart pair={symbol} />
         <Tab.Navigator
           lazy={true}
           initialRouteName={"book"}
