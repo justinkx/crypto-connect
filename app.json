@@ -17,14 +17,16 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.crypto.connect.project"
+      "bundleIdentifier": "com.crypto.connect.project",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.crypto.connect.project"
+      "package": "com.crypto.connect.project",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
